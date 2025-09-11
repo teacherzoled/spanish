@@ -104,6 +104,33 @@
         .header-vocab { background-color: #f59e0b; } /* Amber/Yellow */
         .header-quiz { background-color: #f97316; } /* Orange */
 
+        /* New styles from Math lesson for video */
+        .header-video { background-color: #dc2626; } /* Red */
+        .border-video { border-color: #dc2626; }
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .video-container iframe {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+        }
+        .video-wrapper {
+            transition: max-width 0.5s ease-in-out;
+            margin: 0 auto;
+        }
+        .video-wrapper.collapsed {
+            max-width: 60%; /* Making the video smaller */
+        }
+        .video-wrapper.expanded {
+            max-width: 100%;
+        }
+        /* End of new styles */
+
         .border-main { border-color: #3b82f6; }
         .border-activity { border-color: #8b5cf6; }
         .border-vocab { border-color: #f59e0b; }
@@ -221,6 +248,57 @@
                         <li>Ejemplos: <strong>Voy a estudiar.</strong> <strong>Vamos a jugar.</strong> <strong>Ellos van a trabajar.</strong></li>
                     </ul>
                     <p class="text-sm text-gray-600 mt-4">💡 <strong>Tip:</strong> Infinitivo = la forma base del verbo, como estudiar, jugar, viajar, trabajar.</p>
+                </div>
+            </div>
+
+            <!-- NEW: Vocabulary Section -->
+            <div class="lesson-section border-vocab">
+                <div class="section-header header-vocab">
+                    <span>Vocabulario: Verbos Comunes 📚</span>
+                </div>
+                <div class="section-content">
+                    <p>Usa estos verbos para formar tus oraciones con <strong>"voy a..."</strong>. (Use these verbs to form your sentences with "I am going to...").</p>
+                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-8 gap-y-2 mt-4">
+                        <ul>
+                            <li><strong>aprender</strong> - to learn</li>
+                            <li><strong>beber</strong> - to drink</li>
+                            <li><strong>caminar</strong> - to walk</li>
+                            <li><strong>cantar</strong> - to sing</li>
+                            <li><strong>comer</strong> - to eat</li>
+                            <li><strong>comprar</strong> - to buy</li>
+                            <li><strong>correr</strong> - to run</li>
+                            <li><strong>dibujar</strong> - to draw</li>
+                            <li><strong>dormir</strong> - to sleep</li>
+                            <li><strong>escribir</strong> - to write</li>
+                        </ul>
+                        <ul>
+                            <li><strong>escuchar</strong> - to listen</li>
+                            <li><strong>estudiar</strong> - to study</li>
+                            <li><strong>hablar</strong> - to speak</li>
+                            <li><strong>hacer</strong> - to do/make</li>
+                            <li><strong>ir</strong> - to go</li>
+                            <li><strong>jugar</strong> - to play</li>
+                            <li><strong>leer</strong> - to read</li>
+                            <li><strong>mirar</strong> - to watch</li>
+                            <li><strong>trabajar</strong> - to work</li>
+                            <li><strong>viajar</strong> - to travel</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NEW: Video Explainer -->
+            <div class="lesson-section border-video">
+                <div class="section-header header-video">
+                    <span>Ver: La Fórmula del Futuro 🎬</span>
+                </div>
+                <div class="section-content">
+                    <p>Mira este video para repasar cómo usar <strong>ir + a + infinitivo</strong>. (Watch this video to review how to use the formula.)</p>
+                    <div class="video-wrapper collapsed">
+                        <div class="video-container">
+                            <iframe src="https://www.youtube.com/embed/ND7YFPDWm98" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                    </div>
                 </div>
             </div>
 
