@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis aspiraciones: Voy a…</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Lilita+One&display=swap" rel="stylesheet">
+    <style>
+        /* Base styles from template */
+        body {
+            font-family: 'Comic Neue', cursive;
+            background-color: #eef2ff; /* Light indigo background */
+            color: #1a202c;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .main-content-wrapper {
+            flex-grow: 1;
+        }
+        .container {
+            max-width: 90%;
+            margin: 0 auto;
+            padding: 1.5rem 0;
+        }
+
+        /* Header styles */
+        .header {
+            background-color: #fef3c7;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            min-height: 80px;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .header-logo {
+            height: 50px;
+            width: auto;
+            border-radius: 0.5rem;
+        }
+        .header-title {
+            font-family: 'Lilita One', cursive;
+            color: #f97316;
+            font-size: 2.25rem;
+            font-weight: 400;
+            text-align: center;
+        }
+
+        /* Footer styles */
+        .footer {
+            background-color: #ea580c;
+            color: white;
+            padding: 1.25rem 2rem;
+            text-align: center;
+            margin-top: auto;
+            border-top-left-radius: 1rem;
+            border-top-right-radius: 1rem;
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Card (lesson-section) styles */
+        .lesson-section {
+            background-color: #ffffff;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            overflow: hidden;
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+            border-left-width: 4px;
+            border-bottom-width: 4px;
+            border-color: transparent;
+        }
+        .lesson-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        .section-header {
+            padding: 0.75rem 1.5rem;
+            font-size: 1.5rem;
+            font-family: 'Lilita One', cursive;
+            font-weight: 400;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .section-content {
+            padding: 1.5rem;
+        }
+
+        /* Card Header/Border Colors */
+        .header-main { background-color: #3b82f6; } /* Blue */
+        .header-activity { background-color: #8b5cf6; } /* Violet/Purple */
+        .header-vocab { background-color: #f59e0b; } /* Amber/Yellow */
+        .header-quiz { background-color: #f97316; } /* Orange */
+
+        .border-main { border-color: #3b82f6; }
+        .border-activity { border-color: #8b5cf6; }
+        .border-vocab { border-color: #f59e0b; }
+        .border-quiz { border-color: #f97316; }
+
+        /* General text styles */
+        p { margin-bottom: 1rem; line-height: 1.6; font-size: 1.1rem; }
+        ul { margin-top: 1em; margin-bottom: 1em; padding-left: 1.5rem; list-style-type: disc; }
+        li { margin-top: 0.5em; margin-bottom: 0.5em; font-size: 1.1rem; }
+        strong { font-weight: 700; }
+
+        /* Button styles */
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            border: none;
+            margin-top: 1rem;
+        }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); }
+        .btn:active { transform: translateY(0); box-shadow: none; }
+        .button-primary { background-color: #4f46e5; }
+        .button-primary:hover { background-color: #4338ca; }
+        .button-secondary { background-color: #6b7280; margin-left: 0.5rem; }
+        .button-secondary:hover { background-color: #4b5563; }
+
+        /* Quiz Option styles */
+        .quiz-option {
+            background-color: #f0f9ff; border: 2px solid #93c5fd; padding: 0.75rem 1rem;
+            margin-bottom: 0.5rem; border-radius: 0.5rem; cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .quiz-option:hover { background-color: #e0f2fe; transform: translateX(5px); }
+        .quiz-option.selected { background-color: #bfdbfe; border-color: #2563eb; }
+        .quiz-option.correct-answer { background-color: #d1fae5; border-color: #10b981; animation: flashGreen 0.5s ease-out; }
+        .quiz-option.incorrect-answer { background-color: #fee2e2; border-color: #ef4444; animation: shake 0.5s ease-out, flashRed 0.5s ease-out; }
+
+        /* Quick Check Answer Box styles */
+        .answer-box {
+            background-color: #ecfdf5; border: 1px solid #34d399; padding: 1rem;
+            border-radius: 0.5rem; margin-top: 1rem; display: none;
+            animation: flashGreen 0.5s ease-out;
+        }
+
+        /* Visual Feedback Animations */
+        @keyframes flashGreen { 0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); } 50% { box-shadow: 0 0 15px 5px rgba(16, 185, 129, 0.7); } 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); } }
+        @keyframes flashRed { 0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); } 50% { box-shadow: 0 0 15px 5px rgba(239, 68, 68, 0.7); } 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); } }
+        @keyframes shake { 0%, 100% { transform: translateX(0); } 25%, 75% { transform: translateX(-5px); } 50% { transform: translateX(5px); } }
+
+        /* Confetti styles */
+        .confetti-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999; }
+        .confetti { position: absolute; width: 10px; height: 10px; opacity: 0; animation: confetti-fall 3s forwards; }
+        @keyframes confetti-fall { 0% { opacity: 1; transform: translateY(-100vh) rotate(0deg); } 100% { opacity: 0; transform: translateY(100vh) rotate(720deg); } }
+
+        /* Feedback message styles */
+        .feedback { margin-top: 1rem; font-weight: 600; opacity: 0; transform: scale(0.95); transition: opacity 0.5s ease-out, transform 0.5s ease-out; }
+        .feedback.show { opacity: 1; transform: scale(1); }
+        .correct-feedback { color: #10b981; }
+        .incorrect-feedback { color: #ef4444; }
+
+        /* Drag & Drop styles */
+        .draggable {
+            background-color: #a78bfa; color: white; padding: 0.75rem 1.25rem; margin: 0.5rem;
+            border-radius: 0.5rem; cursor: grab; flex: 1 1 auto; max-width: calc(50% - 1rem);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); transition: all 0.2s ease-in-out;
+            display: flex; align-items: center; justify-content: center; text-align: center;
+            min-height: 50px;
+        }
+        .draggable:active { cursor: grabbing; transform: scale(1.05); box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); z-index: 10; }
+        .dropzone {
+            padding: 1rem; border: 2px dashed #a5b4fc; background-color: #f0f9ff;
+            border-radius: 0.75rem; min-height: 100px; transition: all 0.3s ease;
+            display: flex; flex-direction: column; align-items: center;
+        }
+        .dropzone.hover { background-color: #e0e7ff; border-color: #6366f1; }
+        .dropzone.correct { border-style: solid; border-color: #10b981; background-color: #d1fae5; animation: flashGreen 0.5s ease-out; }
+        .dropzone.incorrect { border-style: solid; border-color: #ef4444; background-color: #fee2e2; animation: shake 0.5s ease-out, flashRed 0.5s ease-out; }
+        .dropzone-label { font-weight: 700; color: #4338ca; margin-bottom: 0.5rem; }
+        @media (max-width: 640px) { .draggable { max-width: calc(100% - 1rem); } }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-left">
+            <img src="https://i.postimg.cc/bwyD9j9w/Teacher-ed-Logo.png" alt="Teacher Ed Logo" class="header-logo">
+            <div class="header-title">Teacher Ed Classroom</div>
+        </div>
+    </header>
+
+    <div class="main-content-wrapper">
+        <div class="container">
+
+            <!-- 1. Main Title Card -->
+            <div class="lesson-section border-main">
+                <div class="section-header header-main">
+                    <span>Mis aspiraciones: Voy a… 🚀</span>
+                </div>
+                <div class="section-content">
+                    <p>¡Hola! 👋 Hoy aprenderás a decir tus planes para el futuro usando <strong>ir + a + infinitivo</strong>. ¡Es fácil y muy útil para hablar de tus sueños y metas!</p>
+                </div>
+            </div>
+
+            <!-- 2. Mini-Explainer Card -->
+            <div class="lesson-section border-main">
+                <div class="section-header header-main">
+                    <span>¿Cómo se dice el futuro? 🤔</span>
+                </div>
+                <div class="section-content">
+                    <ul>
+                        <li>Usa <strong>ir</strong> (voy, vas, va, vamos, van) + <strong>a</strong> + <strong>verbo en infinitivo</strong>.</li>
+                        <li>Ejemplos: <strong>Voy a estudiar.</strong> <strong>Vamos a jugar.</strong> <strong>Ellos van a trabajar.</strong></li>
+                    </ul>
+                    <p class="text-sm text-gray-600 mt-4">💡 <strong>Tip:</strong> Infinitivo = la forma base del verbo, como estudiar, jugar, viajar, trabajar.</p>
+                </div>
+            </div>
+
+            <!-- 3. Quick Check #1 -->
+            <div class="lesson-section border-vocab">
+                <div class="section-header header-vocab">
+                    <span>¡Prueba Rápida!</span>
+                </div>
+                <div class="section-content text-center">
+                    <p>Verdadero o falso: ‘Voy a jugar’ = ‘I am going to play’.</p>
+                    <button class="btn button-primary" onclick="toggleAnswer('qc1-answer')">Mostrar respuesta</button>
+                    <div id="qc1-answer" class="answer-box">
+                        <p class="text-lg font-bold">Verdadero ✅</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. Conjugation Practice (Drag & Drop) -->
+            <div class="lesson-section border-activity">
+                <div class="section-header header-activity">
+                    <span>Actividad: ¿Quién va a...?</span>
+                </div>
+                <div class="section-content text-center">
+                    <p>Arrastra cada plan al sujeto correcto. (Drag each plan to the correct subject.)</p>
+                    <div class="flex flex-wrap justify-center my-6" id="draggable-items-container">
+                        <div class="draggable" draggable="true" id="item1" data-target="yo">___ a ser doctor. (I am going to be a doctor.)</div>
+                        <div class="draggable" draggable="true" id="item2" data-target="tú">___ a leer tu libro. (You are going to read your book.)</div>
+                        <div class="draggable" draggable="true" id="item3" data-target="ella">___ a cantar su canción. (She is going to sing her song.)</div>
+                        <div class="draggable" draggable="true" id="item4" data-target="nosotros">___ a hacer nuestra tarea. (We are going to do our homework.)</div>
+                        <div class="draggable" draggable="true" id="item5" data-target="ellos">___ a comer su almuerzo. (They are going to eat their lunch.)</div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                        <div class="dropzone" id="yo-zone" data-accept="yo"><span class="dropzone-label">yo (voy)</span></div>
+                        <div class="dropzone" id="tu-zone" data-accept="tú"><span class="dropzone-label">tú (vas)</span></div>
+                        <div class="dropzone" id="ella-zone" data-accept="ella"><span class="dropzone-label">él/ella (va)</span></div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="dropzone" id="nosotros-zone" data-accept="nosotros"><span class="dropzone-label">nosotros (vamos)</span></div>
+                        <div class="dropzone" id="ellos-zone" data-accept="ellos"><span class="dropzone-label">ellos (van)</span></div>
+                    </div>
+                    <div>
+                        <button class="btn button-primary" onclick="checkDragDrop()">Revisar mis respuestas</button>
+                        <button class="btn button-secondary" onclick="resetDragDrop()">Empezar de nuevo</button>
+                    </div>
+                    <div id="drag-drop-feedback" class="feedback text-lg"></div>
+                </div>
+            </div>
+
+            <!-- 5. Quick Check #2 -->
+            <div class="lesson-section border-vocab">
+                <div class="section-header header-vocab">
+                    <span>¡Prueba Rápida!</span>
+                </div>
+                <div class="section-content text-center">
+                    <p>Completa la oración: Yo ___ a estudiar.</p>
+                    <button class="btn button-primary" onclick="toggleAnswer('qc2-answer')">Mostrar respuesta</button>
+                    <div id="qc2-answer" class="answer-box">
+                        <p class="text-lg font-bold">voy</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6. Multiple-Choice Quiz -->
+            <div class="lesson-section border-quiz">
+                <div class="section-header header-quiz">
+                    <span>Prueba Final 🧠</span>
+                </div>
+                <div class="section-content text-center">
+                    <p>¡Demuestra lo que aprendiste! Elige la mejor respuesta.</p>
+                    <div id="quiz-container" class="text-left max-w-2xl mx-auto mt-6">
+                        <!-- Quiz questions will be inserted here by JavaScript -->
+                    </div>
+                    <button class="btn button-primary" onclick="submitQuiz()">Enviar Prueba</button>
+                    <div id="quiz-feedback" class="feedback text-lg"></div>
+                </div>
+            </div>
+
+            <!-- 7. Write Your Plans (Reflection) -->
+            <div class="lesson-section border-quiz">
+                <div class="section-header header-quiz">
+                    <span>¡Tus Planes! ✍️</span>
+                </div>
+                <div class="section-content text-center">
+                    <p>Escribe 3–5 oraciones con <strong>voy a…</strong> o <strong>vamos a…</strong> sobre tus planes después de sexto grado.</p>
+                    <textarea id="reflection-text" rows="5" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition" placeholder="Por ejemplo: Voy a ir a un nuevo colegio. Voy a estudiar mucho..."></textarea>
+                    <button class="btn button-primary" onclick="submitReflection()">Enviar</button>
+                    <div id="reflection-feedback" class="feedback text-lg"></div>
+                </div>
+            </div>
+
+            <!-- 8. Exit Ticket -->
+            <div class="lesson-section border-main">
+                <div class="section-header header-main">
+                    <span>¡Para Terminar! 🎉</span>
+                </div>
+                <div class="section-content text-center">
+                    <p class="text-xl font-bold">En voz alta: di <strong>una</strong> oración con ‘voy a…’.</p>
+                    <p class="mt-4 text-lg">¡Excelente! Ya puedes hablar del futuro en español. ¡Buen trabajo!</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p class="font-semibold">¡Sigue aprendiendo y soñando en grande!</p>
+        <p class="text-xs mt-1">© 2025 Teacher Ed Classroom — All rights reserved.</p>
+    </footer>
+
+    <script>
+        // --- Quick Check ---
+        function toggleAnswer(id) {
+            const answerBox = document.getElementById(id);
+            answerBox.style.display = answerBox.style.display === 'block' ? 'none' : 'block';
+        }
+
+        // --- Drag and Drop Activity ---
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeDragDrop();
+            loadQuiz();
+        });
+
+        const originalDraggablesContainer = document.getElementById('draggable-items-container');
+        const originalDraggablesHTML = originalDraggablesContainer.innerHTML;
+        let draggedItem = null;
+
+        function initializeDragDrop() {
+            const draggables = document.querySelectorAll('.draggable');
+            const dropzones = document.querySelectorAll('.dropzone');
+
+            draggables.forEach(draggable => {
+                draggable.addEventListener('dragstart', (e) => {
+                    draggedItem = e.target;
+                    setTimeout(() => e.target.style.opacity = '0.5', 0);
+                });
+                draggable.addEventListener('dragend', (e) => {
+                    setTimeout(() => e.target.style.opacity = '1', 0);
+                    draggedItem = null;
+                });
+            });
+
+            dropzones.forEach(zone => {
+                zone.addEventListener('dragover', e => {
+                    e.preventDefault();
+                    zone.classList.add('hover');
+                });
+                zone.addEventListener('dragleave', () => zone.classList.remove('hover'));
+                zone.addEventListener('drop', e => {
+                    e.preventDefault();
+                    zone.classList.remove('hover');
+                    if (draggedItem) {
+                        zone.appendChild(draggedItem);
+                    }
+                });
+            });
+        }
+
+        function checkDragDrop() {
+            const dropzones = document.querySelectorAll('.dropzone');
+            const feedbackDiv = document.getElementById('drag-drop-feedback');
+            let allCorrect = true;
+
+            dropzones.forEach(zone => {
+                const acceptedType = zone.dataset.accept;
+                const itemsInZone = zone.querySelectorAll('.draggable');
+                
+                // A zone is correct ONLY if it contains exactly one item AND that item's target matches the zone's accepted type.
+                const zoneCorrect = itemsInZone.length === 1 && itemsInZone[0].dataset.target === acceptedType;
+
+                zone.classList.remove('correct', 'incorrect');
+                if (zoneCorrect) {
+                    zone.classList.add('correct');
+                } else {
+                    zone.classList.add('incorrect');
+                    allCorrect = false;
+                }
+            });
+
+            if (allCorrect && document.querySelectorAll('.dropzone .draggable').length === 5) {
+                feedbackDiv.className = 'feedback text-lg correct-feedback show';
+                feedbackDiv.textContent = '¡Perfecto! Todas las respuestas son correctas.';
+            } else {
+                feedbackDiv.className = 'feedback text-lg incorrect-feedback show';
+                feedbackDiv.textContent = '¡Casi! Revisa las zonas en rojo. Inténtalo de nuevo.';
+            }
+        }
+
+        function resetDragDrop() {
+            originalDraggablesContainer.innerHTML = originalDraggablesHTML;
+            document.querySelectorAll('.dropzone').forEach(zone => {
+                zone.classList.remove('correct', 'incorrect', 'hover');
+                const label = zone.querySelector('.dropzone-label');
+                zone.innerHTML = '';
+                if (label) zone.appendChild(label);
+            });
+            document.getElementById('drag-drop-feedback').classList.remove('show');
+            initializeDragDrop();
+        }
+
+        // --- Multiple-Choice Quiz ---
+        const quizQuestions = [
+            {
+                question: "¿Cuál forma es correcta para ‘nosotros’?",
+                options: ["voy", "vas", "vamos", "van"],
+                answer: "vamos"
+            },
+            {
+                question: "Selecciona la frase correcta:",
+                options: ["Yo vas a estudiar", "Yo voy a estudiar", "Yo va a estudiar", "Yo van a estudiar"],
+                answer: "Yo voy a estudiar"
+            },
+            {
+                question: "¿Qué significa ‘Ella va a trabajar’?",
+                options: ["She works", "She is going to work", "She wants to work", "She worked"],
+                answer: "She is going to work"
+            },
+            {
+                question: "Elige la opción con ‘ir + a + infinitivo’:",
+                options: ["Ellos juegan", "Nosotros vamos a leer", "Tú estudias", "Yo trabajo"],
+                answer: "Nosotros vamos a leer"
+            }
+        ];
+        let currentQuizAnswers = {};
+
+        function loadQuiz() {
+            const quizContainer = document.getElementById('quiz-container');
+            quizContainer.innerHTML = '';
+            quizQuestions.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.classList.add('mb-6');
+                questionDiv.innerHTML = `<p class="font-bold text-lg mb-3">${index + 1}. ${q.question}</p>`;
+                q.options.forEach(option => {
+                    const optionDiv = document.createElement('div');
+                    optionDiv.classList.add('quiz-option');
+                    optionDiv.textContent = option;
+                    optionDiv.dataset.questionIndex = index;
+                    optionDiv.dataset.option = option;
+                    optionDiv.onclick = () => selectOption(index, option, optionDiv);
+                    questionDiv.appendChild(optionDiv);
+                });
+                quizContainer.appendChild(questionDiv);
+            });
+        }
+
+        function selectOption(qIndex, option, clickedEl) {
+            const optionsForQuestion = document.querySelectorAll(`[data-question-index="${qIndex}"]`);
+            optionsForQuestion.forEach(el => el.classList.remove('selected'));
+            clickedEl.classList.add('selected');
+            currentQuizAnswers[qIndex] = option;
+        }
+
+        function submitQuiz() {
+            let score = 0;
+            quizQuestions.forEach((q, index) => {
+                const options = document.querySelectorAll(`[data-question-index="${index}"]`);
+                options.forEach(opt => {
+                    opt.classList.remove('correct-answer', 'incorrect-answer');
+                    if (opt.dataset.option === q.answer) {
+                        opt.classList.add('correct-answer');
+                    }
+                    if (opt.classList.contains('selected') && opt.dataset.option !== q.answer) {
+                        opt.classList.add('incorrect-answer');
+                    }
+                });
+                if (currentQuizAnswers[index] === q.answer) {
+                    score++;
+                }
+            });
+
+            const feedbackDiv = document.getElementById('quiz-feedback');
+            feedbackDiv.textContent = `Tu resultado: ${score} de ${quizQuestions.length}. ¡Revisa las respuestas!`;
+            if (score === quizQuestions.length) {
+                feedbackDiv.className = 'feedback text-lg correct-feedback show';
+                feedbackDiv.textContent += ' ¡Felicidades, lo hiciste perfecto! 🥳';
+                createConfetti();
+            } else {
+                feedbackDiv.className = 'feedback text-lg incorrect-feedback show';
+            }
+        }
+
+        function createConfetti() {
+            const confettiContainer = document.createElement('div');
+            confettiContainer.className = 'confetti-container';
+            document.body.appendChild(confettiContainer);
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.animationDelay = Math.random() * 2 + 's';
+                const colors = ['#3b82f6', '#f59e0b', '#8b5cf6', '#10b981', '#ef4444'];
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confettiContainer.appendChild(confetti);
+            }
+            setTimeout(() => confettiContainer.remove(), 4000);
+        }
+
+        // --- Reflection Textarea ---
+        function submitReflection() {
+            const textarea = document.getElementById('reflection-text');
+            const feedbackDiv = document.getElementById('reflection-feedback');
+            if (textarea.value.trim().length < 40) {
+                feedbackDiv.className = 'feedback text-lg incorrect-feedback show';
+                feedbackDiv.textContent = '¡Escribe un poco más! Queremos saber tus planes.';
+                textarea.style.animation = 'shake 0.5s ease-out';
+                setTimeout(() => textarea.style.animation = '', 500);
+            } else {
+                feedbackDiv.className = 'feedback text-lg correct-feedback show';
+                feedbackDiv.textContent = '¡Gracias por compartir tus planes! Son geniales. ¡Sigue así! 👍';
+                textarea.style.animation = 'flashGreen 0.5s ease-out';
+                setTimeout(() => textarea.style.animation = '', 500);
+            }
+        }
+    </script>
+</body>
+</html>
