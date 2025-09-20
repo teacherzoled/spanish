@@ -131,7 +131,10 @@
             max-width: 100%;
         }
         @media (max-width: 640px) {
-            .video-wrapper.collapsed { max-width: 100%; }
+            .video-wrapper.collapsed { 
+                max-width: calc(100% + 3rem); /* Expand to counter parent padding */
+                margin-left: -1.5rem; /* Pull left */
+            }
         }
         /* End of new styles */
 
@@ -353,7 +356,7 @@
                 </div>
                 <div class="section-content">
                     <p>Mira este video para ver diferentes maneras de usar la estructura <strong>ir + a + infinitivo</strong>. Incluye ejemplos afirmativos, negativos, preguntas y expresiones de tiempo. (Watch this video to see different ways to use the structure. It includes affirmative, negative, and interrogative examples, along with time expressions.)</p>
-                    <div class="video-wrapper collapsed">
+                    <div class="video-wrapper collapsed -mx-6">
                         <div class="video-container">
                             <iframe src="https://www.youtube.com/embed/yhZMruehpJU?playsinline=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                         </div>
