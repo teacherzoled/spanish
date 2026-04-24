@@ -764,11 +764,10 @@
      Free tier: 15 requests/min, 1500/day
      Get your key: aistudio.google.com
   ══════════════════════════════════════ */
-  const GEMINI_KEY = 'YOUR_GEMINI_API_KEY'; // ← paste your key here
-  const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_KEY}`;
+  const WORKER_URL = 'https://edlo-gemini.smartstandardsix.workers.dev/';
 
   async function callGemini(systemPrompt, userMessage) {
-    const res = await fetch(GEMINI_URL, {
+    const res = await fetch(WORKER_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
