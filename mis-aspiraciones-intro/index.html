@@ -766,21 +766,23 @@
   ══════════════════════════════════════ */
   const WORKER_URL = 'https://edlo-gemini.smartstandardsix.workers.dev/';
 
-  async function callGemini(systemPrompt, userMessage) {
+  async function callAI(systemPrompt, userMessage) {
     const res = await fetch(WORKER_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        contents: [{
-          role: 'user',
-          parts: [{ text: systemPrompt + '\n\n' + userMessage }]
-        }],
-        generationConfig: { maxOutputTokens: 200, temperature: 0.4 }
+        model: 'gpt-4o-mini',
+        max_tokens: 200,
+        temperature: 0.4,
+        messages: [
+          { role: 'system', content: systemPrompt },
+          { role: 'user',   content: userMessage  }
+        ]
       })
     });
     const data = await res.json();
     if (data.error) throw new Error(data.error.message);
-    return data.candidates?.[0]?.content?.parts?.[0]?.text || '¡Revisado!';
+    return data.choices?.[0]?.message?.content || '¡Revisado!';
   }
 
   /* ── AI Feedback — single fill-in check ── */
@@ -808,7 +810,7 @@ Reglas de retroalimentación:
 - Si está vacío o sin sentido: pide que intente de nuevo.
 - Nunca respondas en inglés.
 - Sé directo, claro y apropiado para estudiantes de 11-13 años.`;
-      const text = await callGemini(systemPrompt, `El estudiante escribió: "${val}"`);
+      const text = await callAI(systemPrompt, `El estudiante escribió: "${val}"`);
       const isOk = !text.toLowerCase().includes('error') &&
                    !text.toLowerCase().includes('incorrecto') &&
                    !text.toLowerCase().includes('falta') &&
@@ -845,7 +847,7 @@ Criterios:
 4. ¿Hay errores de conjugación o estructura?
 Tono: Elogia lo correcto con entusiasmo. Señala errores con firmeza pero amabilidad. Sugiere mejoras concretas.
 Responde SOLO en español. Máximo 4 oraciones. Apropiado para estudiantes de 11-13 años.`;
-      const text = await callGemini(systemPrompt, `Párrafo del estudiante: "${val}"`);
+      const text = await callAI(systemPrompt, `Párrafo del estudiante: "${val}"`);
       const isOk = !text.toLowerCase().includes('error') &&
                    !text.toLowerCase().includes('incorrecto') &&
                    !text.toLowerCase().includes('falta');
