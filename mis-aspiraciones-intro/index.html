@@ -449,7 +449,7 @@
         <li>¿Qué vas a hacer en el futuro? <em class="en">(What are you going to do in the future?)</em></li>
       </ul>
       <div class="pointer">👉 Hoy vas a aprender a usar una estructura para hablar del futuro. <em class="en">(Today you will learn a structure to talk about the future.)</em></div>
-      <button class="audio-btn" onclick="speak('¿Qué vas a hacer en el futuro? ¿Qué vas a estudiar? Hoy vas a aprender a usar una estructura para hablar del futuro.', this)">🔊 Escuchar sección</button>
+      <button class="audio-btn" onclick="speak('¿Qué vas a hacer en el futuro? ¿Qué vas a estudiar? Hoy vas a aprender a usar una estructura para hablar del futuro.', this, 'f')">🔊 Escuchar sección</button>
     </div>
   </div>
 
@@ -470,10 +470,19 @@
         <tr><td>Yo voy a</td><td>I am going to</td></tr>
         <tr><td>Tú vas a</td><td>You are going to</td></tr>
         <tr><td>Él / Ella va a</td><td>He / She is going to</td></tr>
+        <tr><td>Nosotros vamos a</td><td>We are going to</td></tr>
+        <tr><td>Ellos / Ellas van a</td><td>They are going to</td></tr>
       </table>
-      <p style="margin-top:1rem;"><strong>✍️ Escribe una oración con "tú vas a". <em class="en">(Write one sentence using "you are going to".)</em></strong></p>
-      <div class="fill-line"><span>Tú vas a</span><input class="fill-input" type="text" placeholder="estudiar, trabajar…"><span>.</span></div>
-      <button class="audio-btn" onclick="speak('ir más a más infinitivo. Se usa para hablar del futuro cercano. Yo voy a estudiar. Yo voy a trabajar. Tú vas a. Él va a. Ella va a.', this)">🔊 Escuchar sección</button>
+      <p style="margin-top:1rem;"><strong>✍️ Practica todas las formas. Completa cada oración: <em class="en">(Practice all forms. Complete each sentence:)</em></strong></p>
+      <div class="fill-line"><span>Tú vas a</span><input id="s2-tu" class="fill-input" type="text" placeholder="estudiar, trabajar…"><span>.</span><button class="audio-btn" style="margin-top:0;margin-left:8px;" onclick="checkFill('s2-tu','tú vas a','tú','s2-tu-fb')">✓ Revisar</button></div>
+      <div class="feedback" id="s2-tu-fb"></div>
+      <div class="fill-line"><span>Él va a</span><input id="s2-el" class="fill-input" type="text" placeholder="jugar, correr…"><span>.</span><button class="audio-btn" style="margin-top:0;margin-left:8px;" onclick="checkFill('s2-el','él va a','él','s2-el-fb')">✓ Revisar</button></div>
+      <div class="feedback" id="s2-el-fb"></div>
+      <div class="fill-line"><span>Nosotros vamos a</span><input id="s2-nos" class="fill-input" type="text" placeholder="aprender, leer…"><span>.</span><button class="audio-btn" style="margin-top:0;margin-left:8px;" onclick="checkFill('s2-nos','nosotros vamos a','nosotros','s2-nos-fb')">✓ Revisar</button></div>
+      <div class="feedback" id="s2-nos-fb"></div>
+      <div class="fill-line"><span>Ellos van a</span><input id="s2-ellos" class="fill-input" type="text" placeholder="cantar, vivir…"><span>.</span><button class="audio-btn" style="margin-top:0;margin-left:8px;" onclick="checkFill('s2-ellos','ellos van a','ellos','s2-ellos-fb')">✓ Revisar</button></div>
+      <div class="feedback" id="s2-ellos-fb"></div>
+      <button class="audio-btn" onclick="speak('ir más a más infinitivo. Se usa para hablar del futuro cercano. Yo voy a estudiar. Yo voy a trabajar. Tú vas a. Él va a. Ella va a.', this, 'm')">🔊 Escuchar sección</button>
     </div>
   </div>
 
@@ -489,7 +498,7 @@
         <li>"<strong>voy a ser</strong>" <em class="en">(going to be)</em></li>
       </ul>
       <div class="pointer">👉 No mires el video pasivamente. Escucha activamente. <em class="en">(Do not watch passively. Listen actively.)</em></div>
-      <button class="audio-btn" onclick="speak('Escucha con intención. Busca estas frases: voy a estudiar, voy a trabajar, voy a ser. No mires el video pasivamente. Escucha activamente.', this)">🔊 Escuchar sección</button>
+      <button class="audio-btn" onclick="speak('Escucha con intención. Busca estas frases: voy a estudiar, voy a trabajar, voy a ser. No mires el video pasivamente. Escucha activamente.', this, 'f')">🔊 Escuchar sección</button>
     </div>
   </div>
 
@@ -500,7 +509,7 @@
       <div class="video-wrap">
         <iframe src="https://www.youtube.com/embed/ND7YFPDWm98" title="Voy a + infinitivo" allowfullscreen></iframe>
       </div>
-      <button class="audio-btn" onclick="speak('Observa y escucha. Presta atención a las frases con voy a.', this)">🔊 Instrucciones</button>
+      <button class="audio-btn" onclick="speak('Observa y escucha. Presta atención a las frases con voy a.', this, 'm')">🔊 Instrucciones</button>
     </div>
   </div>
 
@@ -510,11 +519,13 @@
     <div class="block-body">
       <p><strong>✍️ Escribe lo que escuchaste <em class="en">(Write what you heard)</em></strong></p>
       <p>Escribe 2 frases diferentes del video usando "voy a": <em class="en">(Write 2 different sentences from the video using "voy a":)</em></p>
-      <div class="fill-line"><span>1.</span><input class="fill-input" type="text" placeholder="Escribe una frase con 'voy a'…"></div>
-      <div class="fill-line"><span>2.</span><input class="fill-input" type="text" placeholder="Escribe otra frase…"></div>
+      <div class="fill-line"><span>1.</span><input id="s5-1" class="fill-input" type="text" placeholder="Escribe una frase con 'voy a'…"><button class="audio-btn" style="margin-top:0;margin-left:8px;" onclick="checkFill('s5-1','voy a','yo','s5-1-fb')">✓ Revisar</button></div>
+      <div class="feedback" id="s5-1-fb"></div>
+      <div class="fill-line"><span>2.</span><input id="s5-2" class="fill-input" type="text" placeholder="Escribe otra frase…"><button class="audio-btn" style="margin-top:0;margin-left:8px;" onclick="checkFill('s5-2','voy a','yo','s5-2-fb')">✓ Revisar</button></div>
+      <div class="feedback" id="s5-2-fb"></div>
       <div class="pointer">👉 Deben tener "voy a" <em class="en">(They must include "voy a")</em></div>
       <p>No repitas la misma frase. Usa verbos diferentes. <em class="en">(Do not repeat the same sentence. Use different verbs.)</em></p>
-      <button class="audio-btn" onclick="speak('Escribe dos frases diferentes del video usando voy a. No repitas la misma frase. Usa verbos diferentes.', this)">🔊 Escuchar instrucciones</button>
+      <button class="audio-btn" onclick="speak('Escribe dos frases diferentes del video usando voy a. No repitas la misma frase. Usa verbos diferentes.', this, 'f')">🔊 Escuchar instrucciones</button>
     </div>
   </div>
 
@@ -525,15 +536,23 @@
       <div class="stop-box">
         <div class="stop-title">🛑 ALTO &nbsp;<em style="font-family:'Nunito',sans-serif;font-size:0.85rem;font-weight:600;">(STOP)</em></div>
         <ul>
-          <li>✔ Escribe 2 oraciones nuevas usando "<strong>voy a</strong>" <em class="en">(Write 2 new sentences using "voy a")</em></li>
+          <li>✔ Escribe una oración para <strong>cada persona</strong> usando la forma correcta de "ir" <em class="en">(Write one sentence for each person using the correct form of "ir")</em></li>
           <li>✔ Usa verbos diferentes <em class="en">(Use different verbs)</em></li>
         </ul>
       </div>
-      <div class="fill-line"><span>1.</span><input class="fill-input" type="text" placeholder="Yo voy a…"></div>
-      <div class="fill-line"><span>2.</span><input class="fill-input" type="text" placeholder="Yo voy a…"></div>
+      <div class="fill-line"><span>Yo voy a</span><input id="s6-yo" class="fill-input" type="text" placeholder="estudiar…"><span>.</span><button class="audio-btn" style="margin-top:0;margin-left:8px;" onclick="checkFill('s6-yo','yo voy a','yo','s6-yo-fb')">✓ Revisar</button></div>
+      <div class="feedback" id="s6-yo-fb"></div>
+      <div class="fill-line"><span>Tú vas a</span><input id="s6-tu" class="fill-input" type="text" placeholder="trabajar…"><span>.</span><button class="audio-btn" style="margin-top:0;margin-left:8px;" onclick="checkFill('s6-tu','tú vas a','tú','s6-tu-fb')">✓ Revisar</button></div>
+      <div class="feedback" id="s6-tu-fb"></div>
+      <div class="fill-line"><span>Él / Ella va a</span><input id="s6-el" class="fill-input" type="text" placeholder="aprender…"><span>.</span><button class="audio-btn" style="margin-top:0;margin-left:8px;" onclick="checkFill('s6-el','va a','él/ella','s6-el-fb')">✓ Revisar</button></div>
+      <div class="feedback" id="s6-el-fb"></div>
+      <div class="fill-line"><span>Nosotros vamos a</span><input id="s6-nos" class="fill-input" type="text" placeholder="jugar…"><span>.</span><button class="audio-btn" style="margin-top:0;margin-left:8px;" onclick="checkFill('s6-nos','nosotros vamos a','nosotros','s6-nos-fb')">✓ Revisar</button></div>
+      <div class="feedback" id="s6-nos-fb"></div>
+      <div class="fill-line"><span>Ellos van a</span><input id="s6-ellos" class="fill-input" type="text" placeholder="vivir…"><span>.</span><button class="audio-btn" style="margin-top:0;margin-left:8px;" onclick="checkFill('s6-ellos','ellos van a','ellos','s6-ellos-fb')">✓ Revisar</button></div>
+      <div class="feedback" id="s6-ellos-fb"></div>
       <div class="pointer">👉 No continúes sin escribir. <em class="en">(Do not continue without writing.)</em></div>
       <div class="pointer">🔊 Lee tus oraciones en voz alta dos veces. <em class="en">(Read your sentences aloud twice.)</em></div>
-      <button class="audio-btn" onclick="speak('Alto. Escribe dos oraciones nuevas usando voy a. Usa verbos diferentes. No continúes sin escribir. Lee tus oraciones en voz alta dos veces.', this)">🔊 Escuchar instrucciones</button>
+      <button class="audio-btn" onclick="speak('Alto. Escribe dos oraciones nuevas usando voy a. Usa verbos diferentes. No continúes sin escribir. Lee tus oraciones en voz alta dos veces.', this, 'm')">🔊 Escuchar instrucciones</button>
     </div>
   </div>
 
@@ -554,7 +573,7 @@
         </div>
       </div>
       <div class="pointer">👉 Aspiración + plan <em class="en">(Aspiration + plan)</em></div>
-      <button class="audio-btn" onclick="speak('Une ideas. Yo quiero ser doctor. Yo voy a estudiar medicina. Aspiración más plan.', this)">🔊 Escuchar ejemplos</button>
+      <button class="audio-btn" onclick="speak('Une ideas. Yo quiero ser doctor. Yo voy a estudiar medicina. Aspiración más plan.', this, 'f')">🔊 Escuchar ejemplos</button>
     </div>
   </div>
 
@@ -564,25 +583,33 @@
     <div class="block-body">
       <div class="fill-line">
         <span>1. Yo quiero ser</span>
-        <input class="fill-input" type="text" placeholder="doctor, maestro…">
-        <span class="en">. (I want to be ________)</span>
+        <input id="s8-1" class="fill-input" type="text" placeholder="doctor, maestro…">
+        <span class="en">.</span>
+        <button class="audio-btn" style="margin-top:0;margin-left:8px;" onclick="checkFill('s8-1','quiero ser','yo','s8-1-fb')">✓ Revisar</button>
       </div>
+      <div class="feedback" id="s8-1-fb"></div>
       <div class="fill-line">
         <span>2. Yo voy a</span>
-        <input class="fill-input" type="text" placeholder="estudiar, trabajar…">
-        <span class="en">. (I am going to ________)</span>
+        <input id="s8-2" class="fill-input" type="text" placeholder="estudiar, trabajar…">
+        <span class="en">.</span>
+        <button class="audio-btn" style="margin-top:0;margin-left:8px;" onclick="checkFill('s8-2','yo voy a','yo','s8-2-fb')">✓ Revisar</button>
       </div>
+      <div class="feedback" id="s8-2-fb"></div>
       <div class="fill-line">
         <span>3. Yo voy a</span>
-        <input class="fill-input" type="text" placeholder="aprender, viajar…">
-        <span class="en">. (I am going to ________)</span>
+        <input id="s8-3" class="fill-input" type="text" placeholder="aprender, viajar…">
+        <span class="en">.</span>
+        <button class="audio-btn" style="margin-top:0;margin-left:8px;" onclick="checkFill('s8-3','yo voy a','yo','s8-3-fb')">✓ Revisar</button>
       </div>
+      <div class="feedback" id="s8-3-fb"></div>
       <div class="fill-line">
         <span>4. Yo voy a</span>
-        <input class="fill-input" type="text" placeholder="ser, vivir…">
-        <span class="en">. (I am going to ________)</span>
+        <input id="s8-4" class="fill-input" type="text" placeholder="ser, vivir…">
+        <span class="en">.</span>
+        <button class="audio-btn" style="margin-top:0;margin-left:8px;" onclick="checkFill('s8-4','yo voy a','yo','s8-4-fb')">✓ Revisar</button>
       </div>
-      <button class="audio-btn" onclick="speak('Completa las oraciones. Uno: Yo quiero ser. Dos: Yo voy a. Tres: Yo voy a. Cuatro: Yo voy a.', this)">🔊 Escuchar instrucciones</button>
+      <div class="feedback" id="s8-4-fb"></div>
+      <button class="audio-btn" onclick="speak('Completa las oraciones. Uno: Yo quiero ser. Dos: Yo voy a. Tres: Yo voy a. Cuatro: Yo voy a.', this, 'm')">🔊 Escuchar instrucciones</button>
     </div>
   </div>
 
@@ -601,7 +628,7 @@
       <textarea id="final-text" class="lesson-textarea" rows="6" placeholder="Ejemplo: Yo quiero ser maestro. Voy a estudiar mucho. Voy a…"></textarea>
       <br>
       <button class="btn btn-primary" onclick="submitFinal()">Enviar ✓</button>
-      <button class="audio-btn" onclick="speak('Escribe cuatro o cinco oraciones. Incluye qué quieres ser. Usa voy a al menos dos veces. Lee tu párrafo en voz alta antes de enviar.', this)">🔊 Escuchar instrucciones</button>
+      <button class="audio-btn" onclick="speak('Escribe cuatro o cinco oraciones. Incluye qué quieres ser. Usa voy a al menos dos veces. Lee tu párrafo en voz alta antes de enviar.', this, 'f')">🔊 Escuchar instrucciones</button>
       <div id="final-feedback" class="feedback"></div>
     </div>
   </div>
@@ -615,7 +642,7 @@
         <li>¿Usaste "<strong>voy a</strong>" correctamente? <em class="en">(Did you use "voy a" correctly?)</em></li>
         <li>¿Puedes hacer más oraciones? <em class="en">(Can you make more sentences?)</em></li>
       </ul>
-      <button class="audio-btn" onclick="speak('Piensa. ¿Usaste voy a correctamente? ¿Puedes hacer más oraciones?', this)">🔊 Escuchar reflexión</button>
+      <button class="audio-btn" onclick="speak('Piensa. ¿Usaste voy a correctamente? ¿Puedes hacer más oraciones?', this, 'm')">🔊 Escuchar reflexión</button>
     </div>
   </div>
 
@@ -634,21 +661,64 @@
 <button id="back-to-top" title="Back to top" aria-label="Back to top">↑</button>
 
 <script>
-  /* ── Text-to-Speech ── */
-  function speak(text, btnEl) {
+  /* ── Text-to-Speech with gender selection ── */
+
+  // Voice cache — loaded once after voices are ready
+  let _esVoices = null;
+
+  function getEsVoices() {
+    if (_esVoices) return _esVoices;
+    const all = window.speechSynthesis.getVoices();
+    const es  = all.filter(v => v.lang.startsWith('es'));
+
+    // Priority order for Latin American voices
+    const latamCodes = ['es-MX','es-US','es-419','es-CO','es-AR','es-CL','es-PE','es-VE'];
+
+    // Female: names commonly containing these strings
+    const femaleNames = ['paulina','female','mujer','sara','monica','lucia','camila','valeria','isabella','sofia','google español'];
+    // Male: names commonly containing these strings
+    const maleNames   = ['male','hombre','jorge','carlos','diego','miguel','juan','google español de estados'];
+
+    const latam = es.filter(v => latamCodes.some(c => v.lang.startsWith(c)));
+    const pool  = latam.length ? latam : es; // fall back to any Spanish if no LatAm found
+
+    const female = pool.find(v => femaleNames.some(n => v.name.toLowerCase().includes(n)))
+                || pool.find(v => v.name.toLowerCase().includes('f'))
+                || pool[0] || null;
+
+    const male   = pool.find(v => maleNames.some(n => v.name.toLowerCase().includes(n)))
+                || pool.find(v => v !== female)
+                || pool[0] || null;
+
+    _esVoices = { female, male, any: pool[0] || null };
+    return _esVoices;
+  }
+
+  // Ensure voices are loaded (Chrome loads them async)
+  if (window.speechSynthesis) {
+    window.speechSynthesis.onvoiceschanged = () => { _esVoices = null; };
+  }
+
+  // gender: 'f' | 'm' | 'any'
+  function speak(text, btnEl, gender = 'any') {
     if (!window.speechSynthesis) { alert('Tu navegador no soporta audio.'); return; }
     window.speechSynthesis.cancel();
+
     const utter = new SpeechSynthesisUtterance(text);
-    utter.lang = 'es-MX';
-    utter.rate = 0.88;
-    utter.pitch = 1;
-    // Try to find a Spanish voice
-    const voices = window.speechSynthesis.getVoices();
-    const esVoice = voices.find(v => v.lang.startsWith('es'));
-    if (esVoice) utter.voice = esVoice;
+    utter.lang  = 'es-MX';
+    utter.rate  = 0.88;
+    utter.pitch = gender === 'f' ? 1.1 : gender === 'm' ? 0.9 : 1.0;
+
+    const voices = getEsVoices();
+    if (voices) {
+      if      (gender === 'f' && voices.female) utter.voice = voices.female;
+      else if (gender === 'm' && voices.male)   utter.voice = voices.male;
+      else if (voices.any)                      utter.voice = voices.any;
+    }
+
     if (btnEl) {
       btnEl.classList.add('speaking');
-      utter.onend = () => btnEl.classList.remove('speaking');
+      utter.onend  = () => btnEl.classList.remove('speaking');
       utter.onerror = () => btnEl.classList.remove('speaking');
     }
     window.speechSynthesis.speak(utter);
@@ -689,21 +759,104 @@
   window.addEventListener('scroll', () => { topBtn.style.display = window.scrollY > 300 ? 'flex' : 'none'; });
   topBtn.addEventListener('click', () => window.scrollTo({top:0,behavior:'smooth'}));
 
-  /* ── Final paragraph submission ── */
-  function submitFinal() {
+  /* ══════════════════════════════════════
+     AI FEEDBACK — powered by Google Gemini
+     Free tier: 15 requests/min, 1500/day
+     Get your key: aistudio.google.com
+  ══════════════════════════════════════ */
+  const GEMINI_KEY = 'YOUR_GEMINI_API_KEY'; // ← paste your key here
+  const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_KEY}`;
+
+  async function callGemini(systemPrompt, userMessage) {
+    const res = await fetch(GEMINI_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: [{
+          role: 'user',
+          parts: [{ text: systemPrompt + '\n\n' + userMessage }]
+        }],
+        generationConfig: { maxOutputTokens: 200, temperature: 0.4 }
+      })
+    });
+    const data = await res.json();
+    if (data.error) throw new Error(data.error.message);
+    return data.candidates?.[0]?.content?.parts?.[0]?.text || '¡Revisado!';
+  }
+
+  /* ── AI Feedback — single fill-in check ── */
+  async function checkFill(inputId, context, person, feedbackId) {
+    const input = document.getElementById(inputId);
+    const fb    = document.getElementById(feedbackId);
+    const val   = input ? input.value.trim() : '';
+    if (!val) {
+      fb.className = 'feedback show err';
+      fb.textContent = '✏️ Escribe algo primero.';
+      return;
+    }
+    fb.className = 'feedback show';
+    fb.style.color = 'var(--subtitle-c)';
+    fb.textContent = '⏳ Revisando…';
+    try {
+      const systemPrompt = `Eres el asistente de español del maestro EdLo para estudiantes de Standard 6 en Belice.
+Tu tarea es revisar la respuesta del estudiante en español.
+Contexto: La lección es sobre "ir + a + infinitivo" para hablar del futuro.
+La oración usa el sujeto: "${person}" con el contexto: "${context}".
+Reglas de retroalimentación:
+- Responde SOLO en español.
+- Si la respuesta es correcta: elogia brevemente y confirma que está bien. Usa 1-2 oraciones.
+- Si tiene errores: señala el error específico con firmeza pero amablemente. Sugiere la corrección. Usa 1-2 oraciones.
+- Si está vacío o sin sentido: pide que intente de nuevo.
+- Nunca respondas en inglés.
+- Sé directo, claro y apropiado para estudiantes de 11-13 años.`;
+      const text = await callGemini(systemPrompt, `El estudiante escribió: "${val}"`);
+      const isOk = !text.toLowerCase().includes('error') &&
+                   !text.toLowerCase().includes('incorrecto') &&
+                   !text.toLowerCase().includes('falta') &&
+                   !text.toLowerCase().includes('recuerda');
+      fb.className = 'feedback show ' + (isOk ? 'ok' : 'err');
+      fb.style.color = '';
+      fb.textContent = text;
+    } catch(e) {
+      fb.className = 'feedback show err';
+      fb.textContent = '⚠️ No se pudo conectar. Revisa tu internet e intenta de nuevo.';
+    }
+  }
+
+  /* ── AI Feedback — final paragraph ── */
+  async function submitFinal() {
     const val = document.getElementById('final-text').value.trim();
     const fb  = document.getElementById('final-feedback');
-    const hasVoyA = val.toLowerCase().includes('voy a');
-    const longEnough = val.length >= 60;
-    if (!longEnough || !hasVoyA) {
+    if (val.length < 30) {
       fb.className = 'feedback show err';
-      fb.textContent = !hasVoyA
-        ? '¡Recuerda incluir "voy a" en tu párrafo!'
-        : '¡Escribe un poco más! Incluye al menos 4 oraciones.';
-    } else {
-      fb.className = 'feedback show ok';
-      fb.textContent = '¡Excelente trabajo! Tu párrafo está muy bien. 🌟';
-      createConfetti();
+      fb.textContent = '✏️ Escribe más. Necesitas al menos 4 oraciones.';
+      return;
+    }
+    fb.className = 'feedback show';
+    fb.style.color = 'var(--subtitle-c)';
+    fb.textContent = '⏳ El maestro EdLo está revisando tu párrafo…';
+    try {
+      const systemPrompt = `Eres el asistente de español del maestro EdLo para estudiantes de Standard 6 en Belice.
+El estudiante acaba de escribir un párrafo sobre sus aspiraciones usando "ir + a + infinitivo".
+Revisa el párrafo y da retroalimentación específica en español.
+Criterios:
+1. ¿Usa "voy a + infinitivo" al menos 2 veces correctamente?
+2. ¿Menciona qué quiere ser en el futuro?
+3. ¿Las oraciones tienen sentido?
+4. ¿Hay errores de conjugación o estructura?
+Tono: Elogia lo correcto con entusiasmo. Señala errores con firmeza pero amabilidad. Sugiere mejoras concretas.
+Responde SOLO en español. Máximo 4 oraciones. Apropiado para estudiantes de 11-13 años.`;
+      const text = await callGemini(systemPrompt, `Párrafo del estudiante: "${val}"`);
+      const isOk = !text.toLowerCase().includes('error') &&
+                   !text.toLowerCase().includes('incorrecto') &&
+                   !text.toLowerCase().includes('falta');
+      fb.className = 'feedback show ' + (isOk ? 'ok' : 'err');
+      fb.style.color = '';
+      fb.textContent = text;
+      if (isOk) createConfetti();
+    } catch(e) {
+      fb.className = 'feedback show err';
+      fb.textContent = '⚠️ No se pudo conectar. Revisa tu internet e intenta de nuevo.';
     }
   }
 
