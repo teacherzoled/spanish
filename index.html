@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spanish — Mr. EdLo's Virtual Classroom</title>
+<link rel="icon" href="https://i.postimg.cc/bwyD9j9w/Teacher-ed-Logo.png" type="image/png">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fredoka+One&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  /* ═══════════════════════════════════════════
+     THEME VARIABLES  — copied exactly from home
+  ═══════════════════════════════════════════ */
+
+  /* 🌙 Night (default) */
+  :root, body.theme-night {
+    --bg:            #1a1a2e;
+    --body-color:    #ffffff;
+    --card-bg:       rgba(255,255,255,0.07);
+    --card-border:   rgba(255,255,255,0.10);
+    --card-border-h: rgba(255,255,255,0.28);
+    --card-shadow:   rgba(0,0,0,0.40);
+    --card-desc:     rgba(255,255,255,0.50);
+    --section-lbl:   rgba(255,255,255,0.35);
+    --subtitle-c:    rgba(255,255,255,0.55);
+    --welcome-bg:    linear-gradient(135deg,#20293d,#1e2d45);
+    --welcome-border:rgba(255,255,255,0.08);
+    --welcome-text:  rgba(255,255,255,0.65);
+    --header-name:   rgba(255,255,255,0.55);
+    --badge-bg:      rgba(255,255,255,0.08);
+    --badge-border:  rgba(255,255,255,0.12);
+    --badge-color:   rgba(255,255,255,0.45);
+    --top-badge-bg:  #FF922B;
+    --top-badge-c:   #1a1a2e;
+    --h1-grad:       linear-gradient(135deg,#fff 0%,#FF922B 50%,#FFD43B 100%);
+    --footer-bg:     linear-gradient(180deg,transparent 0%,rgba(0,0,0,0.45) 100%);
+    --footer-border: rgba(255,255,255,0.07);
+    --footer-name:   rgba(255,255,255,0.40);
+    --footer-tag:    rgba(255,255,255,0.45);
+    --footer-copy:   rgba(255,255,255,0.20);
+    --back-top-bg:   #FF922B;
+    --back-top-c:    #1a1a2e;
+    --back-color:    rgba(255,255,255,0.40);
+    --back-hover:    rgba(255,255,255,0.80);
+    --radial1:       #1e3a5f55;
+    --radial2:       #2d1b6955;
+    --star-show:     1;
+    --tab-border:    rgba(255,255,255,0.12);
+    --tab-color:     rgba(255,255,255,0.40);
+    --tab-hover-b:   rgba(255,255,255,0.30);
+    --tab-hover-c:   rgba(255,255,255,0.75);
+    --tab-active-bg: #FF922B;
+    --tab-active-c:  #1a1a2e;
+    --tab-shadow:    rgba(255,146,43,0.35);
+    --grad-bar:      linear-gradient(90deg,#FF922B,#FFD43B,#20C997,#4DABF7);
+  }
+
+  /* ☀️ Sunny */
+  body.theme-sunny {
+    --bg:            #fffbea;
+    --body-color:    #2d2000;
+    --card-bg:       rgba(255,255,255,0.75);
+    --card-border:   rgba(200,150,0,0.18);
+    --card-border-h: rgba(200,120,0,0.45);
+    --card-shadow:   rgba(180,100,0,0.18);
+    --card-desc:     rgba(80,50,0,0.55);
+    --section-lbl:   rgba(120,80,0,0.50);
+    --subtitle-c:    rgba(100,60,0,0.65);
+    --welcome-bg:    linear-gradient(135deg,#fff8d6,#ffeea0);
+    --welcome-border:rgba(200,150,0,0.25);
+    --welcome-text:  rgba(80,50,0,0.70);
+    --header-name:   #b35c00;
+    --badge-bg:      rgba(255,180,0,0.15);
+    --badge-border:  rgba(255,160,0,0.30);
+    --badge-color:   #8a4800;
+    --top-badge-bg:  #FF922B;
+    --top-badge-c:   #fff;
+    --h1-grad:       linear-gradient(135deg,#b35c00 0%,#e67e00 50%,#f5a623 100%);
+    --footer-bg:     linear-gradient(180deg,transparent 0%,rgba(255,200,50,0.18) 100%);
+    --footer-border: rgba(200,150,0,0.20);
+    --footer-name:   rgba(100,60,0,0.50);
+    --footer-tag:    rgba(100,60,0,0.55);
+    --footer-copy:   rgba(100,60,0,0.30);
+    --back-top-bg:   #FF922B;
+    --back-top-c:    #fff;
+    --back-color:    rgba(120,80,0,0.50);
+    --back-hover:    #b35c00;
+    --radial1:       rgba(255,220,80,0.25);
+    --radial2:       rgba(255,160,30,0.18);
+    --star-show:     0;
+    --tab-border:    rgba(200,130,0,0.25);
+    --tab-color:     rgba(120,70,0,0.55);
+    --tab-hover-b:   rgba(200,120,0,0.40);
+    --tab-hover-c:   #b35c00;
+    --tab-active-bg: #FF922B;
+    --tab-active-c:  #fff;
+    --tab-shadow:    rgba(255,146,43,0.35);
+    --grad-bar:      linear-gradient(90deg,#c45000,#b8860b,#2d8a00,#0077cc);
+  }
+
+  /* ☁️ Cloudy */
+  body.theme-cloudy {
+    --bg:            #e8edf2;
+    --body-color:    #1c2533;
+    --card-bg:       rgba(255,255,255,0.72);
+    --card-border:   rgba(100,130,160,0.18);
+    --card-border-h: rgba(80,110,150,0.40);
+    --card-shadow:   rgba(50,80,120,0.15);
+    --card-desc:     rgba(40,60,90,0.55);
+    --section-lbl:   rgba(60,90,130,0.50);
+    --subtitle-c:    rgba(40,65,100,0.65);
+    --welcome-bg:    linear-gradient(135deg,#dce6f0,#c8d8e8);
+    --welcome-border:rgba(100,140,180,0.22);
+    --welcome-text:  rgba(30,55,85,0.70);
+    --header-name:   #2c5282;
+    --badge-bg:      rgba(100,140,200,0.12);
+    --badge-border:  rgba(80,120,180,0.25);
+    --badge-color:   #2c5282;
+    --top-badge-bg:  #4A90D9;
+    --top-badge-c:   #fff;
+    --h1-grad:       linear-gradient(135deg,#1a365d 0%,#2b6cb0 50%,#4299e1 100%);
+    --footer-bg:     linear-gradient(180deg,transparent 0%,rgba(100,140,200,0.15) 100%);
+    --footer-border: rgba(80,120,180,0.18);
+    --footer-name:   rgba(30,60,100,0.50);
+    --footer-tag:    rgba(30,60,100,0.55);
+    --footer-copy:   rgba(30,60,100,0.30);
+    --back-top-bg:   #4A90D9;
+    --back-top-c:    #fff;
+    --back-color:    rgba(44,82,130,0.50);
+    --back-hover:    #2c5282;
+    --radial1:       rgba(150,190,240,0.30);
+    --radial2:       rgba(100,140,200,0.20);
+    --star-show:     0;
+    --tab-border:    rgba(80,120,180,0.22);
+    --tab-color:     rgba(44,82,130,0.55);
+    --tab-hover-b:   rgba(80,120,180,0.40);
+    --tab-hover-c:   #2c5282;
+    --tab-active-bg: #4A90D9;
+    --tab-active-c:  #fff;
+    --tab-shadow:    rgba(74,144,217,0.35);
+    --grad-bar:      linear-gradient(90deg,#d97706,#0d9488,#2563eb,#7c3aed);
+  }
+
+  /* 🌿 Nature */
+  body.theme-nature {
+    --bg:            #f0f7ee;
+    --body-color:    #1a2e10;
+    --card-bg:       rgba(255,255,255,0.72);
+    --card-border:   rgba(60,120,40,0.18);
+    --card-border-h: rgba(40,100,20,0.40);
+    --card-shadow:   rgba(20,80,10,0.15);
+    --card-desc:     rgba(30,70,15,0.55);
+    --section-lbl:   rgba(40,90,20,0.50);
+    --subtitle-c:    rgba(30,75,15,0.65);
+    --welcome-bg:    linear-gradient(135deg,#d8f0ce,#c4e8b8);
+    --welcome-border:rgba(60,140,30,0.22);
+    --welcome-text:  rgba(20,65,10,0.70);
+    --header-name:   #276221;
+    --badge-bg:      rgba(60,140,30,0.12);
+    --badge-border:  rgba(50,120,20,0.28);
+    --badge-color:   #276221;
+    --top-badge-bg:  #4CAF50;
+    --top-badge-c:   #fff;
+    --h1-grad:       linear-gradient(135deg,#1b4d0f 0%,#2e7d1a 50%,#66bb44 100%);
+    --footer-bg:     linear-gradient(180deg,transparent 0%,rgba(60,140,30,0.12) 100%);
+    --footer-border: rgba(50,120,20,0.18);
+    --footer-name:   rgba(20,70,10,0.50);
+    --footer-tag:    rgba(20,70,10,0.55);
+    --footer-copy:   rgba(20,70,10,0.30);
+    --back-top-bg:   #4CAF50;
+    --back-top-c:    #fff;
+    --back-color:    rgba(39,98,33,0.55);
+    --back-hover:    #276221;
+    --radial1:       rgba(100,200,60,0.22);
+    --radial2:       rgba(60,160,30,0.16);
+    --star-show:     0;
+    --tab-border:    rgba(50,120,20,0.22);
+    --tab-color:     rgba(39,98,33,0.55);
+    --tab-hover-b:   rgba(50,120,20,0.38);
+    --tab-hover-c:   #276221;
+    --tab-active-bg: #4CAF50;
+    --tab-active-c:  #fff;
+    --tab-shadow:    rgba(76,175,80,0.35);
+    --grad-bar:      linear-gradient(90deg,#e65100,#1b5e20,#1565c0,#4a148c);
+  }
+
+  /* ═══════════════════════════════════════════
+     BASE STYLES — identical to home page
+  ═══════════════════════════════════════════ */
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--bg);
+    color: var(--body-color);
+    min-height: 100vh;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: background 0.5s ease, color 0.5s ease;
+  }
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background:
+      radial-gradient(ellipse at 20% 20%, var(--radial1) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 80%, var(--radial2) 0%, transparent 60%);
+    pointer-events: none; z-index: 0;
+    transition: background 0.5s ease;
+  }
+
+  /* Stars */
+  .stars { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; opacity: var(--star-show,1); transition: opacity 0.5s ease; }
+  .star { position: absolute; border-radius: 50%; background: #fff; animation: twinkle var(--d,3s) ease-in-out infinite var(--delay,0s); opacity: 0; }
+  @keyframes twinkle {
+    0%,100% { opacity: 0; transform: scale(1); }
+    50%      { opacity: var(--op,0.6); transform: scale(1.3); }
+  }
+
+  /* Layout */
+  .wrapper { position: relative; z-index: 1; max-width: 1400px; margin: 0 auto; padding: 0 1in 2rem; flex: 1; }
+
+  /* ── Theme bar ── */
+  .theme-bar {
+    position: relative; z-index: 10;
+    display: flex; justify-content: center; gap: 0.5rem;
+    padding: 0.55rem 1rem;
+    background: rgba(0,0,0,0.18);
+    border-bottom: 1px solid rgba(0,0,0,0.10);
+    flex-wrap: wrap;
+  }
+  body.theme-sunny  .theme-bar,
+  body.theme-cloudy .theme-bar,
+  body.theme-nature .theme-bar { background: rgba(0,0,0,0.06); }
+
+  .theme-btn {
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.85rem;
+    padding: 5px 18px; border-radius: 999px;
+    border: 2px solid transparent;
+    background: rgba(128,128,128,0.12);
+    color: var(--body-color);
+    cursor: pointer; opacity: 0.6;
+    transition: all 0.22s ease;
+  }
+  .theme-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+  .theme-btn.active {
+    opacity: 1;
+    background: var(--top-badge-bg);
+    color: var(--top-badge-c);
+    box-shadow: 0 3px 12px rgba(0,0,0,0.20);
+  }
+
+  /* Site header */
+  .site-header { display: flex; align-items: center; justify-content: space-between; padding: 1.2rem 0 0; animation: fadeDown 0.6s ease both; }
+  .site-header-logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+  .site-header-logo img { height: 48px; width: auto; border-radius: 10px; box-shadow: 0 4px 14px rgba(0,0,0,0.25); }
+  .site-header-logo span { font-family: 'Fredoka One', cursive; font-size: 1.15rem; color: var(--header-name); letter-spacing: 0.02em; transition: color 0.4s; }
+  .header-badge { display: inline-block; background: var(--badge-bg); border: 1px solid var(--badge-border); color: var(--badge-color); font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; padding: 5px 14px; border-radius: 999px; transition: all 0.4s; }
+
+  /* Back link */
+  .back-link { display: inline-flex; align-items: center; gap: 6px; margin-top: 1.4rem; font-size: 0.8rem; font-weight: 700; color: var(--back-color); text-decoration: none; transition: color 0.2s; letter-spacing: 0.04em; }
+  .back-link:hover { color: var(--back-hover); }
+
+  /* Page header */
+  header { text-align: center; padding: 2.5rem 1rem 2rem; animation: fadeDown 0.7s ease both; }
+  @keyframes fadeDown { from { opacity:0; transform:translateY(-24px); } to { opacity:1; transform:translateY(0); } }
+  .badge { display: inline-block; background: var(--top-badge-bg); color: var(--top-badge-c); font-size: 0.75rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 14px; border-radius: 999px; margin-bottom: 1rem; animation: pop 0.5s cubic-bezier(.36,1.5,.6,1) 0.3s both; transition: background 0.4s, color 0.4s; }
+  @keyframes pop { from { opacity:0; transform:scale(0.7); } to { opacity:1; transform:scale(1); } }
+  h1 { font-family: 'Fredoka One', cursive; font-size: clamp(2.4rem,6vw,3.8rem); line-height: 1.1; margin-bottom: 0.5rem; background: var(--h1-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .subtitle { font-size: 1.05rem; font-weight: 600; color: var(--subtitle-c); transition: color 0.4s; }
+
+  /* Section label */
+  .section-label { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--section-lbl); margin: 2.5rem 0 1rem; transition: color 0.4s; }
+
+  /* Welcome */
+  .welcome { background: var(--welcome-bg); border: 1.5px solid var(--welcome-border); border-radius: 18px; padding: 1.25rem 1.5rem; display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem; animation: fadeDown 0.7s ease 0.2s both; transition: background 0.4s, border-color 0.4s; }
+  .welcome-icon { font-size: 2rem; flex-shrink: 0; }
+  .welcome-text { font-size: 0.9rem; color: var(--welcome-text); line-height: 1.6; transition: color 0.4s; }
+  .welcome-text strong { color: var(--body-color); }
+
+  /* Tabs */
+  .tabs-wrap { display: flex; justify-content: center; gap: 0.5rem; margin: 2rem 0 0; animation: fadeDown 0.6s ease 0.25s both; flex-wrap: wrap; }
+  .tab-btn { font-family: 'Fredoka One', cursive; font-size: 1rem; padding: 8px 22px; border-radius: 999px; border: 2px solid var(--tab-border); background: transparent; color: var(--tab-color); cursor: pointer; transition: all 0.22s ease; letter-spacing: 0.02em; }
+  .tab-btn:hover { border-color: var(--tab-hover-b); color: var(--tab-hover-c); }
+  .tab-btn.active { background: var(--tab-active-bg); border-color: var(--tab-active-bg); color: var(--tab-active-c); box-shadow: 0 4px 18px var(--tab-shadow); }
+  .tab-panel { display: none; animation: riseUp 0.4s ease both; }
+  .tab-panel.active { display: block; }
+
+  /* Cards */
+  .grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+  .grid .card { flex: 0 1 260px; }
+
+  .card {
+    position: relative; display: flex; flex-direction: column; align-items: flex-start;
+    padding: 1.4rem 1.3rem 1.2rem; border-radius: 18px;
+    background: var(--card-bg); border: 1.5px solid var(--card-border);
+    text-decoration: none; color: var(--body-color); overflow: hidden;
+    transition: transform 0.22s cubic-bezier(.22,.68,0,1.2), border-color 0.2s, box-shadow 0.2s, background 0.4s;
+    animation: riseUp 0.5s ease both; cursor: pointer;
+  }
+  .card:hover { transform: translateY(-6px) scale(1.02); border-color: var(--card-border-h); box-shadow: 0 12px 40px var(--card-shadow); }
+  .card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; border-radius: 18px 18px 0 0; background: var(--accent,#FF922B); }
+  .card-num { font-size: 0.68rem; font-weight: 800; letter-spacing: 0.08em; color: var(--section-lbl); margin-bottom: 0.4rem; text-transform: uppercase; }
+  .card-icon { font-size: 2.2rem; margin-bottom: 0.75rem; line-height: 1; }
+  .card-title { font-family: 'Fredoka One', cursive; font-size: 1.25rem; margin-bottom: 0.25rem; color: var(--accent,#FF922B); }
+  .card-desc { font-size: 0.8rem; color: var(--card-desc); font-weight: 600; line-height: 1.4; transition: color 0.4s; }
+  .card-tags { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 0.6rem; }
+  .tag { font-size: 0.62rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 8px; border-radius: 999px; background: rgba(255,255,255,0.07); color: var(--section-lbl); border: 1px solid var(--card-border); }
+  .card-arrow { position: absolute; bottom: 1rem; right: 1.1rem; font-size: 1rem; opacity: 0; transform: translateX(-6px); transition: opacity 0.2s, transform 0.2s; color: var(--accent,#FF922B); }
+  .card:hover .card-arrow { opacity: 1; transform: translateX(0); }
+
+  /* Coming-soon */
+  .card.soon { opacity: 0.5; pointer-events: none; cursor: default; }
+  .card.soon::after { content: 'Coming Soon'; position: absolute; top: 0.65rem; right: 0.8rem; font-size: 0.6rem; font-weight: 800; letter-spacing: 0.07em; text-transform: uppercase; background: var(--badge-bg); border: 1px solid var(--badge-border); border-radius: 999px; padding: 2px 8px; color: var(--section-lbl); }
+
+  @keyframes riseUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+  .card:nth-child(1){animation-delay:.05s}.card:nth-child(2){animation-delay:.10s}.card:nth-child(3){animation-delay:.15s}
+  .card:nth-child(4){animation-delay:.20s}.card:nth-child(5){animation-delay:.25s}.card:nth-child(6){animation-delay:.30s}
+  .card:nth-child(7){animation-delay:.35s}.card:nth-child(8){animation-delay:.40s}.card:nth-child(9){animation-delay:.45s}
+  .card:nth-child(10){animation-delay:.50s}.card:nth-child(n+11){animation-delay:.55s}
+
+  /* Activity cards */
+  .activity-card {
+    flex: 0 1 320px;
+    position: relative; display: flex; align-items: center; gap: 1rem;
+    padding: 1.1rem 1.3rem; border-radius: 18px;
+    background: var(--card-bg); border: 1.5px solid var(--card-border);
+    text-decoration: none; color: var(--body-color); overflow: hidden;
+    transition: transform 0.22s cubic-bezier(.22,.68,0,1.2), border-color 0.2s, box-shadow 0.2s, background 0.4s;
+    animation: riseUp 0.5s ease both; cursor: pointer;
+  }
+  .activity-card:hover { transform: translateY(-5px) scale(1.015); border-color: var(--card-border-h); box-shadow: 0 10px 32px var(--card-shadow); }
+  .activity-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; border-radius: 18px 18px 0 0; background: var(--accent,#FF922B); }
+  .activity-icon { font-size: 2.2rem; flex-shrink: 0; }
+  .activity-body { flex: 1; min-width: 0; }
+  .activity-title { font-family: 'Fredoka One', cursive; font-size: 1.05rem; color: var(--accent,#FF922B); line-height: 1.2; margin-bottom: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .activity-desc { font-size: 0.76rem; color: var(--card-desc); font-weight: 600; line-height: 1.4; }
+  .activity-badge { font-size: 0.6rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 9px; border-radius: 999px; background: var(--badge-bg); color: var(--badge-color); border: 1px solid var(--badge-border); flex-shrink: 0; transition: all 0.4s; }
+  .activity-card.soon { opacity: 0.5; pointer-events: none; cursor: default; }
+
+  /* Footer */
+  .site-footer { position: relative; z-index: 1; background: var(--footer-bg); border-top: 1px solid var(--footer-border); padding: 2rem 1in; margin-top: 3rem; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; transition: background 0.4s, border-color 0.4s; }
+  .site-footer::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--grad-bar); }
+  .footer-logo { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.4rem; }
+  .footer-logo img { height: 36px; width: auto; border-radius: 8px; opacity: 0.75; }
+  .footer-logo span { font-family: 'Fredoka One', cursive; font-size: 1rem; color: var(--footer-name); transition: color 0.4s; }
+  .footer-tagline { font-size: 0.82rem; font-weight: 700; color: var(--footer-tag); letter-spacing: 0.03em; font-style: italic; transition: color 0.4s; }
+  .footer-copy { font-size: 0.72rem; color: var(--footer-copy); font-weight: 600; letter-spacing: 0.04em; margin-top: 0.2rem; transition: color 0.4s; }
+
+  /* Back to top */
+  #back-to-top { display: none; position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 99; background: var(--back-top-bg); color: var(--back-top-c); border: none; border-radius: 12px; width: 42px; height: 42px; font-size: 1.2rem; font-weight: 900; cursor: pointer; box-shadow: 0 4px 16px rgba(0,0,0,0.25); transition: background 0.2s, transform 0.2s, color 0.4s; align-items: center; justify-content: center; }
+  #back-to-top:hover { transform: translateY(-3px); filter: brightness(1.1); }
+</style>
+</head>
+<body class="theme-night">
+
+<!-- Stars -->
+<div class="stars" id="stars"></div>
+
+<!-- Theme switcher -->
+<div class="theme-bar">
+  <button class="theme-btn active" onclick="setTheme('night',this)">🌙 Night</button>
+  <button class="theme-btn" onclick="setTheme('sunny',this)">☀️ Sunny</button>
+  <button class="theme-btn" onclick="setTheme('cloudy',this)">☁️ Cloudy</button>
+  <button class="theme-btn" onclick="setTheme('nature',this)">🌿 Nature</button>
+</div>
+
+<div class="wrapper">
+
+  <!-- Site header -->
+  <div class="site-header">
+    <a class="site-header-logo" href="https://teacherzoled.github.io/Virtual-Classroom/">
+      <img src="https://i.postimg.cc/bwyD9j9w/Teacher-ed-Logo.png" alt="Mr. EdLo Logo">
+      <span>Mr. EdLo's Virtual Classroom</span>
+    </a>
+    <span class="header-badge">Standard 6 &nbsp;·&nbsp; Belize</span>
+  </div>
+
+  <a class="back-link" href="https://teacherzoled.github.io/Virtual-Classroom/">← Back to Virtual Classroom</a>
+
+  <header>
+    <div class="badge">Standard 6 &nbsp;·&nbsp; Español</div>
+    <h1>🌎 Spanish</h1>
+    <p class="subtitle">Lessons, vocabulary &amp; activities for Standard 6</p>
+  </header>
+
+  <!-- Welcome banner -->
+  <div class="welcome">
+    <div class="welcome-icon">¡Hola!</div>
+    <div class="welcome-text">
+      <strong>Bienvenidos, Standard 6!</strong> Choose a tab to explore your Spanish materials —
+      interactive lessons, vocabulary practice, videos, and fun activities all in one place.
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs-wrap">
+    <button class="tab-btn active" onclick="showTab('lessons',this)">📖 Lessons</button>
+    <button class="tab-btn"        onclick="showTab('activities',this)">🎯 Activities</button>
+  </div>
+
+  <!-- ══════════════ LESSONS TAB ══════════════ -->
+  <div class="tab-panel active" id="tab-lessons">
+
+    <p class="section-label">All Lessons &nbsp;·&nbsp; Standard 6 Spanish</p>
+    <div class="grid">
+
+      <a class="card" href="#" style="--accent:#FF922B;">
+        <div class="card-num">Lesson 01</div>
+        <div class="card-icon">👋</div>
+        <div class="card-title">Saludos y Presentaciones</div>
+        <div class="card-desc">Greetings, introductions and farewells</div>
+        <div class="card-tags"><span class="tag">Vocabulary</span><span class="tag">Speaking</span></div>
+        <span class="card-arrow">→</span>
+      </a>
+
+      <a class="card" href="#" style="--accent:#FFD43B;">
+        <div class="card-num">Lesson 02</div>
+        <div class="card-icon">🔢</div>
+        <div class="card-title">Los Números</div>
+        <div class="card-desc">Numbers 1–100 and counting in Spanish</div>
+        <div class="card-tags"><span class="tag">Numbers</span><span class="tag">Practice</span></div>
+        <span class="card-arrow">→</span>
+      </a>
+
+      <a class="card" href="#" style="--accent:#20C997;">
+        <div class="card-num">Lesson 03</div>
+        <div class="card-icon">📅</div>
+        <div class="card-title">Días y Meses</div>
+        <div class="card-desc">Days of the week and months of the year</div>
+        <div class="card-tags"><span class="tag">Vocabulary</span></div>
+        <span class="card-arrow">→</span>
+      </a>
+
+      <a class="card" href="#" style="--accent:#4DABF7;">
+        <div class="card-num">Lesson 04</div>
+        <div class="card-icon">🌤️</div>
+        <div class="card-title">El Tiempo</div>
+        <div class="card-desc">Talking about the weather in Spanish</div>
+        <div class="card-tags"><span class="tag">Vocabulary</span><span class="tag">Dialogue</span></div>
+        <span class="card-arrow">→</span>
+      </a>
+
+      <a class="card" href="#" style="--accent:#9775FA;">
+        <div class="card-num">Lesson 05</div>
+        <div class="card-icon">👨‍👩‍👧</div>
+        <div class="card-title">La Familia</div>
+        <div class="card-desc">Family members and relationships</div>
+        <div class="card-tags"><span class="tag">Vocabulary</span><span class="tag">Writing</span></div>
+        <span class="card-arrow">→</span>
+      </a>
+
+      <a class="card" href="#" style="--accent:#F783AC;">
+        <div class="card-num">Lesson 06</div>
+        <div class="card-icon">🏠</div>
+        <div class="card-title">Mi Casa</div>
+        <div class="card-desc">Rooms and objects in the house</div>
+        <div class="card-tags"><span class="tag">Vocabulary</span></div>
+        <span class="card-arrow">→</span>
+      </a>
+
+      <a class="card" href="#" style="--accent:#69DB7C;">
+        <div class="card-num">Lesson 07</div>
+        <div class="card-icon">🎓</div>
+        <div class="card-title">La Escuela</div>
+        <div class="card-desc">School supplies, subjects and classroom talk</div>
+        <div class="card-tags"><span class="tag">Vocabulary</span><span class="tag">Dialogue</span></div>
+        <span class="card-arrow">→</span>
+      </a>
+
+      <a class="card" href="#" style="--accent:#FF6B6B;">
+        <div class="card-num">Lesson 08</div>
+        <div class="card-icon">🍎</div>
+        <div class="card-title">La Comida</div>
+        <div class="card-desc">Foods, meals and table expressions</div>
+        <div class="card-tags"><span class="tag">Vocabulary</span><span class="tag">Speaking</span></div>
+        <span class="card-arrow">→</span>
+      </a>
+
+      <a class="card" href="#" style="--accent:#FF922B;">
+        <div class="card-num">Lesson 09</div>
+        <div class="card-icon">🎨</div>
+        <div class="card-title">Los Colores</div>
+        <div class="card-desc">Colors and describing objects</div>
+        <div class="card-tags"><span class="tag">Vocabulary</span></div>
+        <span class="card-arrow">→</span>
+      </a>
+
+      <a class="card" href="#" style="--accent:#FFD43B;">
+        <div class="card-num">Lesson 10</div>
+        <div class="card-icon">🐶</div>
+        <div class="card-title">Los Animales</div>
+        <div class="card-desc">Animals and their descriptions</div>
+        <div class="card-tags"><span class="tag">Vocabulary</span><span class="tag">Writing</span></div>
+        <span class="card-arrow">→</span>
+      </a>
+
+      <a class="card soon" style="--accent:#20C997;">
+        <div class="card-num">Lesson 11</div>
+        <div class="card-icon">🕐</div>
+        <div class="card-title">La Hora</div>
+        <div class="card-desc">Telling time and daily schedule</div>
+        <div class="card-tags"><span class="tag">Grammar</span></div>
+      </a>
+
+      <a class="card soon" style="--accent:#4DABF7;">
+        <div class="card-num">Lesson 12</div>
+        <div class="card-icon">💪</div>
+        <div class="card-title">El Cuerpo Humano</div>
+        <div class="card-desc">Parts of the body and health expressions</div>
+        <div class="card-tags"><span class="tag">Vocabulary</span></div>
+      </a>
+
+      <a class="card soon" style="--accent:#9775FA;">
+        <div class="card-num">Lesson 13</div>
+        <div class="card-icon">🏙️</div>
+        <div class="card-title">La Ciudad</div>
+        <div class="card-desc">Places in the city and giving directions</div>
+        <div class="card-tags"><span class="tag">Vocabulary</span><span class="tag">Dialogue</span></div>
+      </a>
+
+      <a class="card soon" style="--accent:#F783AC;">
+        <div class="card-num">Lesson 14</div>
+        <div class="card-icon">🛍️</div>
+        <div class="card-title">Las Compras</div>
+        <div class="card-desc">Shopping vocabulary and conversations</div>
+        <div class="card-tags"><span class="tag">Dialogue</span></div>
+      </a>
+
+      <a class="card soon" style="--accent:#69DB7C;">
+        <div class="card-num">Lesson 15</div>
+        <div class="card-icon">⚽</div>
+        <div class="card-title">Los Deportes</div>
+        <div class="card-desc">Sports and physical activities</div>
+        <div class="card-tags"><span class="tag">Vocabulary</span></div>
+      </a>
+
+      <a class="card soon" style="--accent:#FF6B6B;">
+        <div class="card-num">Lesson 16</div>
+        <div class="card-icon">🎵</div>
+        <div class="card-title">La Música y el Arte</div>
+        <div class="card-desc">Music, art and cultural expressions</div>
+        <div class="card-tags"><span class="tag">Culture</span></div>
+      </a>
+
+      <a class="card soon" style="--accent:#FF922B;">
+        <div class="card-num">Lesson 17</div>
+        <div class="card-icon">✈️</div>
+        <div class="card-title">Los Viajes</div>
+        <div class="card-desc">Travel vocabulary and transportation</div>
+        <div class="card-tags"><span class="tag">Vocabulary</span></div>
+      </a>
+
+      <a class="card soon" style="--accent:#FFD43B;">
+        <div class="card-num">Lesson 18</div>
+        <div class="card-icon">👗</div>
+        <div class="card-title">La Ropa</div>
+        <div class="card-desc">Clothing and describing what people wear</div>
+        <div class="card-tags"><span class="tag">Vocabulary</span><span class="tag">Writing</span></div>
+      </a>
+
+      <a class="card soon" style="--accent:#20C997;">
+        <div class="card-num">Lesson 19</div>
+        <div class="card-icon">😊</div>
+        <div class="card-title">Los Sentimientos</div>
+        <div class="card-desc">Emotions and expressing how you feel</div>
+        <div class="card-tags"><span class="tag">Vocabulary</span><span class="tag">Speaking</span></div>
+      </a>
+
+      <a class="card soon" style="--accent:#4DABF7;">
+        <div class="card-num">Lesson 20</div>
+        <div class="card-icon">🌿</div>
+        <div class="card-title">La Naturaleza</div>
+        <div class="card-desc">Nature, environment and weather patterns</div>
+        <div class="card-tags"><span class="tag">Vocabulary</span></div>
+      </a>
+
+      <a class="card soon" style="--accent:#9775FA;">
+        <div class="card-num">Lesson 21</div>
+        <div class="card-icon">📝</div>
+        <div class="card-title">Verbos en Presente</div>
+        <div class="card-desc">Present tense verbs and conjugations</div>
+        <div class="card-tags"><span class="tag">Grammar</span></div>
+      </a>
+
+      <a class="card soon" style="--accent:#F783AC;">
+        <div class="card-num">Lesson 22</div>
+        <div class="card-icon">📖</div>
+        <div class="card-title">Verbos en Pasado</div>
+        <div class="card-desc">Simple past tense and its uses</div>
+        <div class="card-tags"><span class="tag">Grammar</span></div>
+      </a>
+
+      <a class="card soon" style="--accent:#69DB7C;">
+        <div class="card-num">Lesson 23</div>
+        <div class="card-icon">🔮</div>
+        <div class="card-title">Verbos en Futuro</div>
+        <div class="card-desc">Future tense — plans and aspirations</div>
+        <div class="card-tags"><span class="tag">Grammar</span></div>
+      </a>
+
+      <a class="card soon" style="--accent:#FF6B6B;">
+        <div class="card-num">Lesson 24</div>
+        <div class="card-icon">🌟</div>
+        <div class="card-title">Mis Aspiraciones</div>
+        <div class="card-desc">Talking about goals, dreams and future plans</div>
+        <div class="card-tags"><span class="tag">Speaking</span><span class="tag">Writing</span></div>
+      </a>
+
+      <a class="card soon" style="--accent:#FF922B;">
+        <div class="card-num">Lesson 25</div>
+        <div class="card-icon">💼</div>
+        <div class="card-title">Las Profesiones</div>
+        <div class="card-desc">Jobs, careers and professional vocabulary</div>
+        <div class="card-tags"><span class="tag">Vocabulary</span></div>
+      </a>
+
+      <a class="card soon" style="--accent:#FFD43B;">
+        <div class="card-num">Lesson 26</div>
+        <div class="card-icon">🌍</div>
+        <div class="card-title">Países y Culturas</div>
+        <div class="card-desc">Spanish-speaking countries and their cultures</div>
+        <div class="card-tags"><span class="tag">Culture</span></div>
+      </a>
+
+      <a class="card soon" style="--accent:#20C997;">
+        <div class="card-num">Lesson 27</div>
+        <div class="card-icon">🏥</div>
+        <div class="card-title">La Salud</div>
+        <div class="card-desc">Health, illness and visiting the doctor</div>
+        <div class="card-tags"><span class="tag">Vocabulary</span><span class="tag">Dialogue</span></div>
+      </a>
+
+      <a class="card soon" style="--accent:#4DABF7;">
+        <div class="card-num">Lesson 28</div>
+        <div class="card-icon">📰</div>
+        <div class="card-title">Comprensión Lectora</div>
+        <div class="card-desc">Reading comprehension in Spanish</div>
+        <div class="card-tags"><span class="tag">Reading</span></div>
+      </a>
+
+      <a class="card soon" style="--accent:#9775FA;">
+        <div class="card-num">Lesson 29</div>
+        <div class="card-icon">🗣️</div>
+        <div class="card-title">Conversaciones Cotidianas</div>
+        <div class="card-desc">Everyday conversation practice</div>
+        <div class="card-tags"><span class="tag">Speaking</span><span class="tag">Dialogue</span></div>
+      </a>
+
+      <a class="card soon" style="--accent:#F783AC;">
+        <div class="card-num">Lesson 30</div>
+        <div class="card-icon">🏆</div>
+        <div class="card-title">Repaso General</div>
+        <div class="card-desc">Full review of the year's topics</div>
+        <div class="card-tags"><span class="tag">Review</span></div>
+      </a>
+
+    </div><!-- /grid -->
+  </div><!-- /tab-lessons -->
+
+  <!-- ══════════════ ACTIVITIES TAB ══════════════ -->
+  <div class="tab-panel" id="tab-activities">
+
+    <p class="section-label">Activities &nbsp;·&nbsp; Standard 6 Spanish</p>
+    <div class="grid">
+
+      <a class="activity-card" href="#" style="--accent:#FF922B;">
+        <div class="activity-icon">🎮</div>
+        <div class="activity-body">
+          <div class="activity-title">Vocabulary Quiz — Saludos</div>
+          <div class="activity-desc">Test your greetings knowledge with this interactive quiz</div>
+        </div>
+        <span class="activity-badge">Quiz</span>
+      </a>
+
+      <a class="activity-card" href="#" style="--accent:#FFD43B;">
+        <div class="activity-icon">🃏</div>
+        <div class="activity-body">
+          <div class="activity-title">Flashcard Set — La Familia</div>
+          <div class="activity-desc">Review family vocabulary with digital flashcards</div>
+        </div>
+        <span class="activity-badge">Flashcards</span>
+      </a>
+
+      <a class="activity-card" href="#" style="--accent:#20C997;">
+        <div class="activity-icon">🎧</div>
+        <div class="activity-body">
+          <div class="activity-title">Listening Activity — El Tiempo</div>
+          <div class="activity-desc">Listen and answer questions about the weather</div>
+        </div>
+        <span class="activity-badge">Listening</span>
+      </a>
+
+      <a class="activity-card" href="#" style="--accent:#4DABF7;">
+        <div class="activity-icon">✍️</div>
+        <div class="activity-body">
+          <div class="activity-title">Writing Practice — Mi Casa</div>
+          <div class="activity-desc">Describe your home using rooms and furniture vocabulary</div>
+        </div>
+        <span class="activity-badge">Writing</span>
+      </a>
+
+      <a class="activity-card" href="#" style="--accent:#9775FA;">
+        <div class="activity-icon">🔊</div>
+        <div class="activity-body">
+          <div class="activity-title">Speaking Activity — Mis Aspiraciones</div>
+          <div class="activity-desc">Record yourself talking about your future plans</div>
+        </div>
+        <span class="activity-badge">Speaking</span>
+      </a>
+
+      <a class="activity-card" href="#" style="--accent:#F783AC;">
+        <div class="activity-icon">🧩</div>
+        <div class="activity-body">
+          <div class="activity-title">Crossword — Los Animales</div>
+          <div class="activity-desc">Complete the crossword using animal vocabulary</div>
+        </div>
+        <span class="activity-badge">Puzzle</span>
+      </a>
+
+      <a class="activity-card" href="#" style="--accent:#69DB7C;">
+        <div class="activity-icon">🎬</div>
+        <div class="activity-body">
+          <div class="activity-title">Video + Questions — La Cultura</div>
+          <div class="activity-desc">Watch a short video about Spanish-speaking cultures</div>
+        </div>
+        <span class="activity-badge">Video</span>
+      </a>
+
+      <a class="activity-card" href="#" style="--accent:#FF6B6B;">
+        <div class="activity-icon">🔡</div>
+        <div class="activity-body">
+          <div class="activity-title">Word Sort — La Comida</div>
+          <div class="activity-desc">Sort foods into breakfast, lunch and dinner categories</div>
+        </div>
+        <span class="activity-badge">Interactive</span>
+      </a>
+
+      <a class="activity-card" href="#" style="--accent:#FF922B;">
+        <div class="activity-icon">🗺️</div>
+        <div class="activity-body">
+          <div class="activity-title">Map Activity — Países Hispanohablantes</div>
+          <div class="activity-desc">Identify Spanish-speaking countries on a map</div>
+        </div>
+        <span class="activity-badge">Geography</span>
+      </a>
+
+      <a class="activity-card" href="#" style="--accent:#FFD43B;">
+        <div class="activity-icon">📋</div>
+        <div class="activity-body">
+          <div class="activity-title">Fill-in-the-Blank — Verbos</div>
+          <div class="activity-desc">Practice conjugating present and past tense verbs</div>
+        </div>
+        <span class="activity-badge">Grammar</span>
+      </a>
+
+      <a class="activity-card soon" style="--accent:#20C997;">
+        <div class="activity-icon">🎤</div>
+        <div class="activity-body">
+          <div class="activity-title">Role Play — En la Tienda</div>
+          <div class="activity-desc">Practice a shopping conversation with a partner</div>
+        </div>
+        <span class="activity-badge">Coming Soon</span>
+      </a>
+
+      <a class="activity-card soon" style="--accent:#4DABF7;">
+        <div class="activity-icon">📝</div>
+        <div class="activity-body">
+          <div class="activity-title">Creative Writing — Mi Futuro</div>
+          <div class="activity-desc">Write a short paragraph about your future career</div>
+        </div>
+        <span class="activity-badge">Coming Soon</span>
+      </a>
+
+    </div><!-- /grid -->
+  </div><!-- /tab-activities -->
+
+</div><!-- /wrapper -->
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="footer-logo">
+    <img src="https://i.postimg.cc/bwyD9j9w/Teacher-ed-Logo.png" alt="Mr. EdLo Logo">
+    <span>Mr. EdLo's Virtual Classroom</span>
+  </div>
+  <p class="footer-tagline">Explore, discover, and learn something new every day!</p>
+  <p class="footer-copy">© 2025 Mr. EdLo's Virtual Classroom — Standard 6 · Belize · All rights reserved.</p>
+</footer>
+
+<button id="back-to-top" title="Back to top" aria-label="Back to top">↑</button>
+
+<script>
+  /* Stars */
+  const sc = document.getElementById('stars');
+  for (let i = 0; i < 80; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    const sz = Math.random()*2.5+1;
+    s.style.cssText=`width:${sz}px;height:${sz}px;top:${Math.random()*100}%;left:${Math.random()*100}%;--d:${(Math.random()*4+2).toFixed(1)}s;--delay:-${(Math.random()*6).toFixed(1)}s;--op:${(Math.random()*0.5+0.2).toFixed(2)};`;
+    sc.appendChild(s);
+  }
+
+  /* Theme switcher — uses same localStorage key "vc-theme" as home page */
+  const THEMES = ['night','sunny','cloudy','nature'];
+  function setTheme(theme, btn) {
+    THEMES.forEach(t => document.body.classList.remove('theme-'+t));
+    document.body.classList.add('theme-'+theme);
+    document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    localStorage.setItem('vc-theme', theme);
+  }
+
+  /* Restore saved theme */
+  (function(){
+    const saved = localStorage.getItem('vc-theme');
+    if (saved && THEMES.includes(saved)) {
+      THEMES.forEach(t => document.body.classList.remove('theme-'+t));
+      document.body.classList.add('theme-'+saved);
+      document.querySelectorAll('.theme-btn').forEach(b => {
+        b.classList.toggle('active', b.textContent.toLowerCase().includes(saved));
+      });
+    }
+  })();
+
+  /* Tab switcher */
+  function showTab(id, btn) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-'+id).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  /* Back to top */
+  const topBtn = document.getElementById('back-to-top');
+  window.addEventListener('scroll', () => {
+    topBtn.style.display = window.scrollY > 300 ? 'flex' : 'none';
+  });
+  topBtn.addEventListener('click', () => window.scrollTo({top:0,behavior:'smooth'}));
+</script>
+</body>
+</html>
