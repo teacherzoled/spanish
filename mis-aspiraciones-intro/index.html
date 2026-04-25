@@ -991,24 +991,23 @@ const feedbackHistory = [];
 
 async function callAI(systemPrompt, userMessage) {
   const passkey = getPasskey();
+  const requestBody = {
+    passkey: passkey,
+    model: 'gpt-4o-mini',
+    max_tokens: 200,
+    temperature: 0.4,
+    messages: [
+      { role: 'system', content: systemPrompt },
+      { role: 'user',   content: userMessage  }
+    ]
+  };
   const res = await fetch(WORKER_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      passkey,
-      model: 'gpt-4o-mini',
-      max_tokens: 200,
-      temperature: 0.4,
-      messages: [
-        { role: 'system', content: systemPrompt },
-        { role: 'user',   content: userMessage  }
-      ]
-    })
+    body: JSON.stringify(requestBody)
   });
   const data = await res.json();
-  // Handle invalid passkey response from Worker
   if (data.error === 'INVALID_KEY') {
-    // Clear the bad key so modal shows again next time
     localStorage.removeItem(PASSKEY_STORAGE);
     throw new Error('INVALID_KEY');
   }
@@ -1047,15 +1046,10 @@ async function submitFinal(){
   const isLastAttempt=attemptCount>=maxAttempts;
   try{
     const systemPrompt=`Eres el asistente de español del maestro EdLo para estudiantes de Standard 6 en Belice.
-El estudiante ${isLastAttempt?'ha usado su último intento':'puede revisar su trabajo'}.
-Revisa el párrafo y da retroalimentación específica en español.
-Criterios:
-1. ¿Usa "voy a + infinitivo" al menos 2 veces correctamente?
-2. ¿Menciona qué quiere ser en el futuro?
-3. ¿Las oraciones tienen sentido?
-4. ¿Hay errores de conjugación o estructura?
-Tono: Elogia lo correcto con entusiasmo. Señala errores con firmeza pero amabilidad.${isLastAttempt?' Es el último intento, da un resumen final alentador.':' Sugiere mejoras concretas para el siguiente intento.'}
-Responde SOLO en español. Máximo 4 oraciones.`;
+Revisa el párrafo. Responde en español. Máximo 2 oraciones cortas.
+Criterios: usa "voy a + infinitivo" mínimo 2 veces, menciona qué quiere ser.
+${isLastAttempt?'Es el último intento. Da un comentario final breve.':'Si hay errores, di qué corregir. Si está bien, felicita brevemente.'}
+Sin explicaciones largas. Directo al punto.`;
     const text=await callAI(systemPrompt,`Párrafo del estudiante: "${val}"`);
     feedbackHistory.push({attempt:attemptCount,text,paragraph:val});
     const isOk=!text.toLowerCase().includes('error')&&!text.toLowerCase().includes('incorrecto')&&!text.toLowerCase().includes('falta');
@@ -1094,33 +1088,47 @@ function downloadPDF(){
   const name=document.getElementById('student-name').value.trim()||'Estudiante';
   const para=document.getElementById('final-text').value.trim();
   const today=new Date().toLocaleDateString('es-BZ',{year:'numeric',month:'long',day:'numeric'});
-  let feedbackText='';
-  feedbackHistory.forEach(f=>{feedbackText+=`\nIntento ${f.attempt}:\n${f.text}\n`;});
+  let feedbackHTML='';
+  feedbackHistory.forEach(f=>{
+    feedbackHTML+=`<div class="fb-block"><strong>Intento ${f.attempt}:</strong><p>${f.text}</p></div>`;
+  });
 
-  const content=`Mr. EdLo's Virtual Classroom
-Mis Aspiraciones: Voy a + infinitivo
-Standard 6 · Wesleyan-Nazarene Primary · Belize
-
-Estudiante: ${name}
-Fecha: ${today}
-
-═══════════════════════════════════════
-TU PÁRRAFO FINAL:
-═══════════════════════════════════════
-${para}
-
-═══════════════════════════════════════
-RETROALIMENTACIÓN DEL MAESTRO EdLo:
-═══════════════════════════════════════
-${feedbackText}`;
-
-  const blob=new Blob([content],{type:'text/plain;charset=utf-8'});
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement('a');
-  a.href=url;
-  a.download=`MisAspiraciones_${name.replace(/\s+/g,'_')}.txt`;
-  a.click();
-  URL.revokeObjectURL(url);
+  const win=window.open('','_blank');
+  win.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8">
+<title>Mis Aspiraciones — ${name}</title>
+<style>
+  body { font-family: 'Georgia', serif; max-width: 700px; margin: 40px auto; padding: 0 20px; color: #1a1a2e; line-height: 1.7; }
+  .header { text-align: center; border-bottom: 3px solid #FF922B; padding-bottom: 1rem; margin-bottom: 1.5rem; }
+  .header h1 { font-size: 1.6rem; color: #FF922B; margin-bottom: 0.3rem; }
+  .header p { font-size: 0.9rem; color: #666; margin: 2px 0; }
+  .section { margin-bottom: 1.5rem; }
+  .section h2 { font-size: 1rem; text-transform: uppercase; letter-spacing: 0.08em; color: #FF922B; border-bottom: 1px solid #FFD43B; padding-bottom: 4px; margin-bottom: 0.75rem; }
+  .paragraph { background: #fff8f0; border-left: 4px solid #FF922B; padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; font-size: 1rem; }
+  .fb-block { background: #f0f7ff; border-left: 4px solid #4DABF7; padding: 0.75rem 1rem; border-radius: 0 8px 8px 0; margin-bottom: 0.75rem; font-size: 0.95rem; }
+  .fb-block strong { color: #2c5282; }
+  .footer { text-align: center; font-size: 0.75rem; color: #999; margin-top: 2rem; border-top: 1px solid #eee; padding-top: 1rem; }
+  @media print { body { margin: 20px; } }
+</style>
+</head><body>
+<div class="header">
+  <h1>🚀 Mis Aspiraciones: Voy a…</h1>
+  <p><strong>Estudiante:</strong> ${name}</p>
+  <p><strong>Fecha:</strong> ${today}</p>
+  <p>Mr. EdLo's Virtual Classroom · Standard 6 · Wesleyan-Nazarene Primary · Belize</p>
+</div>
+<div class="section">
+  <h2>✍️ Tu Párrafo Final</h2>
+  <div class="paragraph">${para}</div>
+</div>
+<div class="section">
+  <h2>💬 Retroalimentación del Maestro EdLo</h2>
+  ${feedbackHTML}
+</div>
+<div class="footer">© 2026 Mr. EdLo's Virtual Classroom · teacherzoled.github.io</div>
+</body></html>`);
+  win.document.close();
+  win.focus();
+  setTimeout(()=>{ win.print(); }, 500);
 }
 
 /* ── CONFETTI ── */
